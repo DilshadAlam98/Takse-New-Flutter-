@@ -40,15 +40,15 @@ class AppTextStyle {
   );
   static final headline = _MyTextStyleSet(
     large: _toStyle(
-      fontSize: 25.0,
+      fontSize: 20.0,
       fontWeight: FontWeight.w600,
     ),
     medium: _toStyle(
-      fontSize: 23.0,
+      fontSize: 18.0,
       fontWeight: FontWeight.w600,
     ),
     small: _toStyle(
-      fontSize: 20,
+      fontSize: 16,
       fontWeight: FontWeight.w500,
     ),
   );

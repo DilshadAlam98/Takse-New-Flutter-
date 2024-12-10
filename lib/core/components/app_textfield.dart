@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:takse/core/constant/asset_const.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_text_style.dart';
@@ -71,9 +72,21 @@ class AppTextField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       enabled: true,
       decoration: InputDecoration(
-        prefixIcon: prefix,
+        prefixIcon: prefix != null
+            ? Container(
+                margin: const EdgeInsets.only(right: 12),
+                width: 45,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(AssetConst.rectangleTextfield),
+                  ),
+                ),
+                child: prefix,
+              )
+            : null,
         suffixIcon: suffix,
-        prefixIconConstraints: const BoxConstraints(maxHeight: 50, maxWidth: 80, minHeight: 20, minWidth: 20),
+        prefixIconConstraints: const BoxConstraints(maxHeight: 100, maxWidth: 100, minHeight: 40, minWidth: 45),
         counter: const SizedBox.shrink(),
         enabled: true,
         isDense: true,

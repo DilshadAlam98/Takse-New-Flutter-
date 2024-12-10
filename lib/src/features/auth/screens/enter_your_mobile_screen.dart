@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:takse/core/components/app_textfield.dart';
-import 'package:takse/core/components/primary_button.dart';
 import 'package:takse/core/constant/asset_const.dart';
+import 'package:takse/core/constant/global_const.dart';
 import 'package:takse/core/theme/app_colors.dart';
 import 'package:takse/core/theme/app_text_style.dart';
 import 'package:takse/src/features/auth/controller/auth_controller.dart';
+
+import '../../../../core/components/primary_button.dart';
 
 class EnterYourMobileScreen extends GetView<AuthController> {
   EnterYourMobileScreen({super.key});
@@ -15,119 +17,154 @@ class EnterYourMobileScreen extends GetView<AuthController> {
   final _mpinController = TextEditingController();
 
   final controller = Get.put(AuthController(), permanent: true);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: MediaQuery.sizeOf(context).width * 0.9,
-                width: double.infinity,
-                color: AppColors.deepYellow,
-              ),
-              Positioned(
-                top: 80,
-                left: 100,
-                right: 100,
-                child: Image.asset(
-                  AssetConst.loginLogo,
-                  width: 220,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Positioned(
-                bottom: 60,
-                left: 70,
-                child: Text("टक से है तो", style: AppTextStyle.display.large.semiBold),
-              ),
-              Positioned(
-                bottom: 30,
-                right: 70,
-                child: Text("टक से होगा", style: AppTextStyle.display.large.semiBold.red),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Form(
-              key: _form,
-              child: Column(
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.sizeOf(context).height,
+          width: MediaQuery.sizeOf(context).width,
+          child: GetBuilder<AuthController>(
+            id: 'auth',
+            builder: (controller) {
+              return Column(
                 children: [
-                  Text("स्मार्ट मोबाइल ग्राहक सेवा केंद्र", style: AppTextStyle.display.medium),
-                  const SizedBox(height: 15),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: AppColors.deepYellow),
-                    ),
-                    child: GetBuilder<AuthController>(
-                      id: "auth",
-                      init: AuthController(),
-                      builder: (controller) {
-                        return Column(
-                          children: [
-                            AppTextField(
-                              textInputType: TextInputType.number,
-                              maxLength: 10,
-                              prefix: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.call, color: AppColors.grey, size: 25),
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        Image.asset(
+                          AssetConst.loginBG,
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          top: 440,
+                          child: Container(
+                            height: MediaQuery.sizeOf(context).height / 2,
+                            width: MediaQuery.sizeOf(context).width,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(color: AppColors.white300, blurRadius: 10),
+                              ],
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                topLeft: Radius.circular(30),
                               ),
-                              hintText: "Enter your mobile number",
-                              controller: _mobileController,
-                              validator: (val) => controller.validateNumber(val),
                             ),
-                            if (controller.loginRes?.isRegistered == true) ...[
-                              const SizedBox(height: 15),
-                              AppTextField(
-                                textInputType: TextInputType.number,
-                                maxLength: 4,
-                                obscureText: !controller.hasPassVisibility.value,
-                                prefix: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Icon(Icons.lock, color: AppColors.grey, size: 25)),
-                                suffix: IconButton(
-                                  onPressed: () => controller.enableVisibility(),
-                                  icon: Icon(
-                                    controller.hasPassVisibility.value ? Icons.visibility_off : Icons.visibility,
-                                    size: 25,
-                                    color: AppColors.grey,
-                                  ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 35),
+                              child: Form(
+                                key: _form,
+                                child: Column(
+                                  children: [
+                                    Image.asset(AssetConst.chutkiWithText, width: 270),
+                                    const SizedBox(height: 40),
+                                    AppTextField(
+                                      prefix: Image.asset(AssetConst.dial, cacheWidth: 26),
+                                      hintText: "Enter Your Mobile Number",
+                                      controller: _mobileController,
+                                      validator: (val) => controller.validateNumber(val),
+                                    ),
+                                    if (controller.loginRes?.isRegistered == true) ...{
+                                      const SizedBox(height: 15),
+                                      AppTextField(
+                                        obscureText: controller.hasPassVisibility.value,
+                                        prefix: Image.asset(AssetConst.lock, cacheWidth: 26),
+                                        hintText: "Enter Your MPIN",
+                                        suffix: GestureDetector(
+                                          onTap: () {
+                                            controller.enableVisibility();
+                                          },
+                                          child: _getVisibilityIcon(controller.hasPassVisibility.value),
+                                        ),
+                                        controller: _mpinController,
+                                        validator: (val) => controller.validateMPIN(val),
+                                      ),
+                                    },
+                                    const SizedBox(height: 30),
+                                    if (controller.loginRes?.isRegistered == true) ...[
+                                      Column(
+                                        children: [
+                                          PrimaryButton(
+                                            text: "OPEN MY MALL",
+                                            onPressed: () {
+                                              if (isValidate) {}
+                                            },
+                                          ),
+                                          const SizedBox(height: 20),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  console("Tap Another User");
+                                                },
+                                                child: Text("Another User?", style: AppTextStyle.title.medium.regular),
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  console("Tap Forget MPIN");
+                                                },
+                                                child: Text("Forget MPIN?", style: AppTextStyle.title.medium.regular),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ] else ...[
+                                      PrimaryButton(
+                                        text: "SUBMIT",
+                                        onPressed: () {
+                                          if (isValidate) {
+                                            controller.sendOtp(_mobileController.text.trim());
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ],
                                 ),
-                                hintText: "Enter your MPIN",
-                                controller: _mpinController,
-                                validator: (val) => controller.validateMPIN(val),
                               ),
-                            ],
-                          ],
-                        );
-                      },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  PrimaryButton(
-                    text: "Submit",
-                    onPressed: () {
-                      if (isValidate) {
-                        controller.sendOtp(_mobileController.text.trim());
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 60),
-                  Image.asset(AssetConst.youturbe, width: 60),
-                  TextButton(
-                    onPressed: () {
-                      /// TODO:: Launch URL to youtube channel
-                    },
-                    child: const Text("Demo Video"),
-                  )
+                  if (controller.loginRes?.isRegistered != true) ...[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 35),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _youtubeButtons(onTap: () {}, label: "टक से क्या है ?"),
+                          _youtubeButtons(onTap: () {}, label: "Sign Up कैसे करे ?"),
+                          _youtubeButtons(onTap: () {}, label: "फायदा क्या है ? "),
+                        ],
+                      ),
+                    )
+                  ],
                 ],
-              ),
-            ),
-          )
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _getVisibilityIcon(bool isVisible) => isVisible
+      ? Icon(Icons.visibility_outlined, color: AppColors.black, size: 22)
+      : Image.asset(AssetConst.hide, cacheWidth: 20);
+
+  Widget _youtubeButtons({required VoidCallback onTap, required String label}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Image.asset(AssetConst.youtube, width: 40),
+          Text(label, style: AppTextStyle.title.medium.regular),
         ],
       ),
     );
