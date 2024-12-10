@@ -9,6 +9,10 @@ import 'package:takse/core/routes/route_const.dart';
 import 'package:takse/core/theme/app_colors.dart';
 import 'package:takse/core/theme/app_text_style.dart';
 import 'package:takse/src/features/auth/controller/registration_controller.dart';
+import 'package:takse/src/features/auth/model/city_data.dart';
+import 'package:takse/src/features/auth/model/district_data.dart';
+import 'package:takse/src/features/auth/model/location_bloc_response.dart';
+import 'package:takse/src/features/auth/model/state_response.dart';
 import 'package:takse/src/features/auth/model/user_type_entity.dart';
 
 class WhoYouAre extends StatelessWidget {
@@ -80,6 +84,8 @@ class Registration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(RegistrationController());
+
     var th = const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark);
     SystemChrome.setSystemUIOverlayStyle(th);
     return Scaffold(
@@ -136,69 +142,87 @@ class Registration extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            Row(
-              children: [
-                Expanded(
-                  child: PrimaryDropdown<String>(
-                    hint: "State",
-                    items: ["Food", "Medical", "Other"]
-                        .map(
-                          (e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e, style: AppTextStyle.title.medium.black),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {},
+            GetBuilder<RegistrationController>(builder: (controller) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: PrimaryDropdown<StateData>(
+                      hint: "State",
+                      selected: controller.selectedState,
+                      items: controller.states
+                              ?.map(
+                                (e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(e.name, style: AppTextStyle.title.medium.black),
+                                ),
+                              )
+                              .toList() ??
+                          [],
+                      onChanged: (value) {
+                        controller.onStateChange(value!);
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: PrimaryDropdown<String>(
-                    hint: "Select District",
-                    items: ["Food", "Medical", "Other"]
-                        .map(
-                          (e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e, style: AppTextStyle.title.medium.black),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {},
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: PrimaryDropdown<DistrictData>(
+                      hint: "Select District",
+                      selected: controller.selectedDistrict,
+                      items: controller.districts
+                              ?.map(
+                                (e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(e.name, style: AppTextStyle.title.medium.black),
+                                ),
+                              )
+                              .toList() ??
+                          [],
+                      onChanged: (value) {
+                        controller.onDistrictChange(value!);
+                      },
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              );
+            }),
             const SizedBox(height: 15),
             Row(
               children: [
                 Expanded(
-                  child: PrimaryDropdown<String>(
+                  child: PrimaryDropdown<CityData>(
                     hint: "Select Block",
-                    items: ["Food", "Medical", "Other"]
-                        .map(
-                          (e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e, style: AppTextStyle.title.medium.black),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {},
+                    selected: controller.selectedCity,
+                    items: controller.cities
+                            ?.map(
+                              (e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(e.name, style: AppTextStyle.title.medium.black),
+                              ),
+                            )
+                            .toList() ??
+                        [],
+                    onChanged: (value) {
+                      controller.onCityChange(value!);
+                    },
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: PrimaryDropdown<String>(
+                  child: PrimaryDropdown<LocationBlock>(
                     hint: "Select Village",
-                    items: ["Food", "Medical", "Other"]
-                        .map(
-                          (e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e, style: AppTextStyle.title.medium.black),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {},
+                    selected: controller.selectedBloc,
+                    items: controller.blocks
+                            ?.map(
+                              (e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(e.name, style: AppTextStyle.title.medium.black),
+                              ),
+                            )
+                            .toList() ??
+                        [],
+                    onChanged: (value) {
+                      controller.onBlockChange(value!);
+                    },
                   ),
                 ),
               ],
