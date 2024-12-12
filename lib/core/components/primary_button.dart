@@ -60,11 +60,7 @@ class PrimaryButton extends StatelessWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            size: 18,
-            color: AppColors.white300,
-          ),
+          Icon(icon, size: 18, color: AppColors.white),
           const SizedBox(width: 8),
           Text(
             text,

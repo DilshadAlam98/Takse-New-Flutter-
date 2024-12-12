@@ -21,135 +21,123 @@ class EnterYourMobileScreen extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.deepYellow,
       resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.sizeOf(context).height,
-          width: MediaQuery.sizeOf(context).width,
-          child: GetBuilder<AuthController>(
-            id: 'auth',
-            builder: (controller) {
-              return Column(
-                children: [
-                  Expanded(
-                    child: Stack(
+      body: GetBuilder<AuthController>(
+        id: 'auth',
+        builder: (controller) {
+          return ListView(
+            children: [
+              if (controller.loginRes?.isRegistered == true) ...{
+                Image.asset(
+                  AssetConst.mPinAsset,
+                  fit: BoxFit.cover,
+                ),
+              } else ...{
+                Image.asset(
+                  AssetConst.loginBG,
+                  fit: BoxFit.cover,
+                ),
+              },
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 35),
+                  child: Form(
+                    key: _form,
+                    child: Column(
                       children: [
-                        Image.asset(
-                          AssetConst.loginBG,
-                          fit: BoxFit.cover,
+                        Image.asset(AssetConst.chutkiWithText, width: 270),
+                        const SizedBox(height: 40),
+                        AppTextField(
+                          prefix: Image.asset(AssetConst.dial, cacheWidth: 26),
+                          hintText: "Enter Your Mobile Number",
+                          controller: _mobileController,
+                          validator: (val) => controller.validateNumber(val),
                         ),
-                        Positioned(
-                          top: 440,
-                          child: Container(
-                            height: MediaQuery.sizeOf(context).height / 2,
-                            width: MediaQuery.sizeOf(context).width,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(color: AppColors.white300, blurRadius: 10),
-                              ],
-                              borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(30),
-                                topLeft: Radius.circular(30),
-                              ),
+                        if (controller.loginRes?.isRegistered == true) ...{
+                          const SizedBox(height: 15),
+                          AppTextField(
+                            obscureText: controller.hasPassVisibility.value,
+                            prefix: Image.asset(AssetConst.lock, cacheWidth: 26),
+                            hintText: "Enter Your MPIN",
+                            suffix: GestureDetector(
+                              onTap: () {
+                                controller.enableVisibility();
+                              },
+                              child: _getVisibilityIcon(controller.hasPassVisibility.value),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 35),
-                              child: Form(
-                                key: _form,
-                                child: Column(
-                                  children: [
-                                    Image.asset(AssetConst.chutkiWithText, width: 270),
-                                    const SizedBox(height: 40),
-                                    AppTextField(
-                                      prefix: Image.asset(AssetConst.dial, cacheWidth: 26),
-                                      hintText: "Enter Your Mobile Number",
-                                      controller: _mobileController,
-                                      validator: (val) => controller.validateNumber(val),
-                                    ),
-                                    if (controller.loginRes?.isRegistered == true) ...{
-                                      const SizedBox(height: 15),
-                                      AppTextField(
-                                        obscureText: controller.hasPassVisibility.value,
-                                        prefix: Image.asset(AssetConst.lock, cacheWidth: 26),
-                                        hintText: "Enter Your MPIN",
-                                        suffix: GestureDetector(
-                                          onTap: () {
-                                            controller.enableVisibility();
-                                          },
-                                          child: _getVisibilityIcon(controller.hasPassVisibility.value),
-                                        ),
-                                        controller: _mpinController,
-                                        validator: (val) => controller.validateMPIN(val),
-                                      ),
-                                    },
-                                    const SizedBox(height: 30),
-                                    if (controller.loginRes?.isRegistered == true) ...[
-                                      Column(
-                                        children: [
-                                          PrimaryButton(
-                                            text: "OPEN MY MALL",
-                                            onPressed: () {
-                                              if (isValidate) {}
-                                            },
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  console("Tap Another User");
-                                                },
-                                                child: Text("Another User?", style: AppTextStyle.title.medium.regular),
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  console("Tap Forget MPIN");
-                                                },
-                                                child: Text("Forget MPIN?", style: AppTextStyle.title.medium.regular),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ] else ...[
-                                      PrimaryButton(
-                                        text: "SUBMIT",
-                                        onPressed: () {
-                                          if (isValidate) {
-                                            controller.sendOtp(_mobileController.text.trim());
-                                          }
-                                        },
-                                      ),
-                                    ],
-                                  ],
-                                ),
-                              ),
-                            ),
+                            controller: _mpinController,
+                            validator: (val) => controller.validateMPIN(val),
                           ),
-                        ),
+                        },
+                        const SizedBox(height: 30),
+                        if (controller.loginRes?.isRegistered == true) ...[
+                          Column(
+                            children: [
+                              PrimaryButton(
+                                text: "OPEN MY MALL",
+                                onPressed: () {
+                                  if (isValidate) {}
+                                },
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      console("Tap Another User");
+                                    },
+                                    child: Text("Another User?", style: AppTextStyle.title.medium.regular),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      console("Tap Forget MPIN");
+                                    },
+                                    child: Text("Forget MPIN?", style: AppTextStyle.title.medium.regular),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ] else ...[
+                          PrimaryButton(
+                            text: "SUBMIT",
+                            onPressed: () {
+                              if (isValidate) {
+                                controller.sendOtp(_mobileController.text.trim());
+                              }
+                            },
+                          ),
+                        ],
+                        if (controller.loginRes?.isRegistered != true) ...[
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 35),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _youtubeButtons(onTap: () {}, label: "टक से क्या है ?"),
+                                _youtubeButtons(onTap: () {}, label: "Sign Up कैसे करे ?"),
+                                _youtubeButtons(onTap: () {}, label: "फायदा क्या है ? "),
+                              ],
+                            ),
+                          )
+                        ],
                       ],
                     ),
                   ),
-                  if (controller.loginRes?.isRegistered != true) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 35),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _youtubeButtons(onTap: () {}, label: "टक से क्या है ?"),
-                          _youtubeButtons(onTap: () {}, label: "Sign Up कैसे करे ?"),
-                          _youtubeButtons(onTap: () {}, label: "फायदा क्या है ? "),
-                        ],
-                      ),
-                    )
-                  ],
-                ],
-              );
-            },
-          ),
-        ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

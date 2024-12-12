@@ -133,7 +133,7 @@ class _MyTextStyle extends TextStyle {
 
   _MyTextStyle get deepYellow => _MyTextStyle(copyWith(color: AppColors.deepYellow));
 
-  _MyTextStyle get white => _MyTextStyle(copyWith(color: AppColors.white300));
+  _MyTextStyle get white => _MyTextStyle(copyWith(color: AppColors.white));
 
   _MyTextStyle get extraBold => _MyTextStyle(copyWith(fontWeight: FontWeight.w800));
 

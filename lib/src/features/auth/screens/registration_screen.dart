@@ -5,7 +5,8 @@ import 'package:takse/core/components/app_textfield.dart';
 import 'package:takse/core/components/common_appbar.dart';
 import 'package:takse/core/components/primary_button.dart';
 import 'package:takse/core/components/primary_dropdown.dart';
-import 'package:takse/core/routes/route_const.dart';
+import 'package:takse/core/constant/asset_const.dart';
+import 'package:takse/core/entity/user_type_entity.dart';
 import 'package:takse/core/theme/app_colors.dart';
 import 'package:takse/core/theme/app_text_style.dart';
 import 'package:takse/src/features/auth/controller/registration_controller.dart';
@@ -13,67 +14,79 @@ import 'package:takse/src/features/auth/model/city_data.dart';
 import 'package:takse/src/features/auth/model/district_data.dart';
 import 'package:takse/src/features/auth/model/location_bloc_response.dart';
 import 'package:takse/src/features/auth/model/state_response.dart';
-import 'package:takse/src/features/auth/model/user_type_entity.dart';
 
-class WhoYouAre extends StatelessWidget {
-  const WhoYouAre({super.key});
+class SelectUserTypeScreen extends StatelessWidget {
+  const SelectUserTypeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(RegistrationController());
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: ListView(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(24),
-            children: [
-              Text(
-                "It seems like you are new to us !!!",
-                style: AppTextStyle.display.medium,
-                // textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 10),
-              Text("Please  let know about you", style: AppTextStyle.title.large),
-              const SizedBox(height: 20),
-              Text("Who you are?", style: AppTextStyle.display.large),
-              const SizedBox(height: 5),
-              ...UserTypeEntity.getUserTypes().map(
-                (e) {
-                  return GetBuilder<RegistrationController>(
-                    id: 'registration-first',
-                    builder: (controller) {
-                      return GestureDetector(
-                        onTap: () {
-                          controller.selectUser(e);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                          margin: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: controller.userType?.index == e.index
-                                ? AppColors.deepYellow.withOpacity(0.6)
-                                : AppColors.deepYellow.withOpacity(0.2),
-                            border: Border.all(color: AppColors.deepYellow),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(e.label, style: AppTextStyle.title.large.semiBold),
+      backgroundColor: AppColors.deepYellow,
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          Image.asset(AssetConst.loginBG, height: 400),
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Image.asset(AssetConst.chutkiWithText, width: 330),
+                  const SizedBox(height: 5),
+                  Text(
+                    'SELECT USER TYPE',
+                    style: AppTextStyle.headline.large.deepYellow.regular,
+                  ),
+                  const SizedBox(height: 15),
+                  ...UserTypeEntity.getUserTypes().map(
+                    (e) {
+                      return Container(
+                        margin: const EdgeInsets.symmetric(vertical: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                        decoration: BoxDecoration(
+                          color: AppColors.deepYellow,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const CircleAvatar(radius: 30),
+                            const SizedBox(width: 15),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(e.label, style: AppTextStyle.title.large),
+                                  Text(
+                                    e.desc,
+                                    style: AppTextStyle.title.medium.regular,
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         ),
                       );
                     },
-                  );
-                },
+                  ),
+                  const SizedBox(height: 20),
+                  PrimaryButton(
+                    text: "Continue",
+                    onPressed: () {},
+                  )
+                ],
               ),
-              const SizedBox(height: 20),
-              PrimaryButton(
-                text: "Continue",
-                onPressed: () {
-                  Get.toNamed(RouteConst.registration);
-                },
-              )
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

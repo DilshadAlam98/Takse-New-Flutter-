@@ -22,7 +22,7 @@ class AppPages {
       ),
       GetPage(
         name: RouteConst.whoYouAre,
-        page: () => const WhoYouAre(),
+        page: () => const SelectUserTypeScreen(),
         binding: BindingsBuilder(() => Get.lazyPut(() => RegistrationController())),
         transition: Transition.fadeIn,
       ),

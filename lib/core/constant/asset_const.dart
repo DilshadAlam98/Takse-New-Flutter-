@@ -10,4 +10,5 @@ class AssetConst {
   static const String dial = 'assets/images/dial 1.png';
   static const String hide = 'assets/images/hide 1.png';
   static const String lock = 'assets/images/lock 1.png';
+  static const String mPinAsset = 'assets/images/2 2.png';
 }

@@ -46,7 +46,7 @@ class PrimaryDropdown<T> extends StatelessWidget {
       decoration: InputDecoration(
         border: !enableBorder ? InputBorder.none : null,
         enabled: true,
-        fillColor: fillColor ?? AppColors.white300,
+        fillColor: fillColor ?? AppColors.white,
         filled: true,
         alignLabelWithHint: true,
         isDense: true,

@@ -68,7 +68,7 @@ class VerifyOtpScreen extends GetView<OtpController> {
                               textStyle: AppTextStyle.headline.medium,
                               decoration: BoxDecoration(
                                 shape: BoxShape.rectangle,
-                                color: AppColors.white300,
+                                color: AppColors.white,
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
                                   color: AppColors.deepYellow,
