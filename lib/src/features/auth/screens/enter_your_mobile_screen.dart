@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:takse/core/components/app_textfield.dart';
 import 'package:takse/core/constant/asset_const.dart';
 import 'package:takse/core/constant/global_const.dart';
+import 'package:takse/core/routes/route_const.dart';
 import 'package:takse/core/theme/app_colors.dart';
 import 'package:takse/core/theme/app_text_style.dart';
 import 'package:takse/src/features/auth/controller/auth_controller.dart';
@@ -27,6 +28,7 @@ class EnterYourMobileScreen extends GetView<AuthController> {
         id: 'auth',
         builder: (controller) {
           return ListView(
+            shrinkWrap: true,
             children: [
               if (controller.loginRes?.isRegistered == true) ...{
                 Image.asset(
@@ -40,6 +42,7 @@ class EnterYourMobileScreen extends GetView<AuthController> {
                 ),
               },
               Container(
+                height: MediaQuery.sizeOf(context).height * 0.55,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -99,7 +102,7 @@ class EnterYourMobileScreen extends GetView<AuthController> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      console("Tap Forget MPIN");
+                                      Get.toNamed(RouteConst.forgetPassword);
                                     },
                                     child: Text("Forget MPIN?", style: AppTextStyle.title.medium.regular),
                                   ),

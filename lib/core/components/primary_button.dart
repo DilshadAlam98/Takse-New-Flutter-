@@ -64,7 +64,7 @@ class PrimaryButton extends StatelessWidget {
           const SizedBox(width: 8),
           Text(
             text,
-            style: textStyle ?? AppTextStyle.title.medium.semiBold,
+            style: textStyle ?? AppTextStyle.title.medium.bold,
           ),
         ],
       );

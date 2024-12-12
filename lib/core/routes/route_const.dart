@@ -4,4 +4,5 @@ class RouteConst {
   static const String otpNo = "/otp-number";
   static const String whoYouAre = "/who-you-are";
   static const String registration = "/registration";
+  static const String forgetPassword = "/forgetPassword";
 }
