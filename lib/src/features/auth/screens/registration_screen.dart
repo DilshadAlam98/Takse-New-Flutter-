@@ -18,13 +18,15 @@ class RegistrationScreen extends GetView<RegistrationController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(RegistrationController());
     return Scaffold(
       backgroundColor: AppColors.deepYellow,
       appBar: const CommonAppBar(title: "", elevation: 0),
       body: SafeArea(
         child: ListView(
+          physics: const NeverScrollableScrollPhysics(),
           children: [
-            Image.asset(AssetConst.registerBG),
+            Image.asset(AssetConst.registerBG, height: 300),
             Container(
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -36,7 +38,6 @@ class RegistrationScreen extends GetView<RegistrationController> {
               child: Form(
                 key: controller.formKey,
                 child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                   children: [
@@ -77,6 +78,9 @@ class RegistrationScreen extends GetView<RegistrationController> {
                       prefix: Image.asset(AssetConst.location, cacheWidth: 28),
                       validator: (val) => controller.validateAreaPin(val),
                       controller: controller.areaPinController,
+                      onChanged: (val) {
+                        controller.getPinCode(val);
+                      },
                     ),
                     // const SizedBox(height: 15),
                     // AppTextField(

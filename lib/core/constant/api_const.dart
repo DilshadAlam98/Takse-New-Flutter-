@@ -9,4 +9,5 @@ class ApiConst {
   static const String cities = "cities";
   static const String blocks = "blocks";
   static const String register = "register";
+  static const String getPinCode = "pincode";
 }

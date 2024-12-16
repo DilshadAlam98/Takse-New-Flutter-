@@ -3,6 +3,7 @@ import 'package:takse/core/config/api_config/rest_client.dart';
 import 'package:takse/core/constant/api_const.dart';
 import 'package:takse/src/features/auth/model/city_data.dart';
 import 'package:takse/src/features/auth/model/district_data.dart';
+import 'package:takse/src/features/auth/model/getpincode_res.dart';
 import 'package:takse/src/features/auth/model/location_bloc_response.dart';
 import 'package:takse/src/features/auth/model/login_one_step.dart';
 import 'package:takse/src/features/auth/model/register_req.dart';
@@ -105,6 +106,19 @@ class ApiSource {
       });
       final res = await _client.dio.post(ApiConst.register, data: formData);
       return res.data['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<GetPinCode>> getPinCode(String pinCode) async {
+    try {
+      final res = await _client.dio.get("${ApiConst.getPinCode}/$pinCode");
+      List<GetPinCode> pinCodeList = [];
+      for (var v in res.data) {
+        pinCodeList.add(GetPinCode.fromJson(v));
+      }
+      return pinCodeList;
     } catch (e) {
       rethrow;
     }

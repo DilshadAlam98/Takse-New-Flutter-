@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:takse/src/utils/dialog_widget/topup_dialog.dart';
 
 import '../../core/base/app_loader.dart';
 import '../../core/base/navigation.dart';
@@ -63,6 +64,13 @@ class AppDialog {
         secondaryButton: secondaryBtn,
         child: child,
       ),
+    );
+  }
+
+  static void showTopUpDialog({required Function(String amt) onProceed}) {
+    showDialog(
+      context: navigatorKey.currentState!.context,
+      builder: (context) => TopUpDialog(onProceed: onProceed),
     );
   }
 

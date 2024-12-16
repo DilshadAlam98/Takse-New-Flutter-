@@ -102,7 +102,7 @@ class RegistrationController extends GetxController {
 
   @override
   void onInit() {
-    userTypeEntity = Get.arguments['userType'];
+    // userTypeEntity = Get.arguments['userType'];
     getStates();
     super.onInit();
   }
@@ -207,6 +207,23 @@ class RegistrationController extends GetxController {
       },
       onError: (e) {
         AppDialog.hideLoader();
+      },
+    );
+  }
+
+  void getPinCode(String val) {
+    DeBouncer(const Duration(milliseconds: 2000)).run(
+      () {
+        sendRequest(
+          onTry: () async {
+            final data = await _source.getPinCode(val);
+            // selectedState = StateData(id: data.firstOrNull!.state!.id, name: data.firstOrNull!.state!.name);
+            // update();
+          },
+          onError: (e) {
+            console("Printing Error...... $e");
+          },
+        );
       },
     );
   }

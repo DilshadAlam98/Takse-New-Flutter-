@@ -5,7 +5,7 @@ import 'package:takse/core/config/api_config/rest_client.dart';
 import 'package:takse/core/constant/api_const.dart';
 import 'package:takse/core/routes/app_pages.dart';
 import 'package:takse/core/theme/app_theme.dart';
-import 'package:takse/src/features/auth/screens/select_user_screen.dart';
+import 'package:takse/src/features/auth/screens/registration_screen.dart';
 
 void main() {
   RestClient.getInstance(baseUrl: ApiConst.baseUrl);
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       getPages: AppPages.getPageBindings(),
       theme: AppTheme.getAppTheme(),
-      home: SelectUserTypeScreen(),
+      home: RegistrationScreen(),
     );
   }
 }

@@ -24,4 +24,9 @@ class AssetConst {
   static const String district1 = 'assets/images/district 1 (1).png';
   static const String house = 'assets/images/houses 1.png';
   static const String village = 'assets/images/village 1.png';
+  static const String trainingBG = 'assets/images/trainingBG.png';
+  static const String chutki = 'assets/images/chutki.png';
+  static const String rewardChutki = 'assets/images/reward-points 1.png';
+  static const String addWallet = 'assets/images/add-wallet 1.png';
+  static const String coinWallet = 'assets/images/Group 27.png';
 }

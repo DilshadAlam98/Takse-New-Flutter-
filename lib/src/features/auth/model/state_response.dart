@@ -1,14 +1,14 @@
 class StateData {
   int id;
   String name;
-  bool status;
-  String countryCode;
+  bool? status;
+  String? countryCode;
 
   StateData({
     required this.id,
     required this.name,
-    required this.status,
-    required this.countryCode,
+    this.status,
+    this.countryCode,
   });
 
   factory StateData.fromJson(Map<String, dynamic> json) => StateData(
