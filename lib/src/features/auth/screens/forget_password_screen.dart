@@ -87,6 +87,10 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                             console("Validate");
                           }
                         },
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text("Resend OTP"),
                       )
                     ],
                   ),

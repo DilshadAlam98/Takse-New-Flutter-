@@ -8,4 +8,5 @@ class ApiConst {
   static const String districts = "districts";
   static const String cities = "cities";
   static const String blocks = "blocks";
+  static const String register = "register";
 }

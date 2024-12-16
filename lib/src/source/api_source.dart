@@ -5,6 +5,7 @@ import 'package:takse/src/features/auth/model/city_data.dart';
 import 'package:takse/src/features/auth/model/district_data.dart';
 import 'package:takse/src/features/auth/model/location_bloc_response.dart';
 import 'package:takse/src/features/auth/model/login_one_step.dart';
+import 'package:takse/src/features/auth/model/register_req.dart';
 import 'package:takse/src/features/auth/model/verify_otp_response.dart';
 
 import '../features/auth/model/state_response.dart';
@@ -83,6 +84,27 @@ class ApiSource {
         blocks.add(LocationBlock.fromJson(v));
       }
       return blocks;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> registerUser(RegisterRequest param) async {
+    try {
+      final formData = FormData.fromMap({
+        "name": param.name,
+        "email": param.email,
+        "role_id": param.roleId,
+        "mobile_number": param.mobileNo,
+        "block_id": param.blockId,
+        "state_id": param.stateId,
+        "district_id": param.districtId,
+        "password": param.password,
+        "pincode": param.pincCode,
+        "referral_code": param.referralCode,
+      });
+      final res = await _client.dio.post(ApiConst.register, data: formData);
+      return res.data['message'];
     } catch (e) {
       rethrow;
     }

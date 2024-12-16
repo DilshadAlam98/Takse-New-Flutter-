@@ -32,7 +32,7 @@ class AppPages {
       ),
       GetPage(
         name: RouteConst.registration,
-        page: () => const Registration(),
+        page: () => const RegistrationScreen(),
         binding: BindingsBuilder(() => Get.lazyPut(() => RegistrationController())),
         transition: Transition.fadeIn,
       ),
