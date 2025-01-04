@@ -29,4 +29,12 @@ class AssetConst {
   static const String rewardChutki = 'assets/images/reward-points 1.png';
   static const String addWallet = 'assets/images/add-wallet 1.png';
   static const String coinWallet = 'assets/images/Group 27.png';
+  static const String playIcon = 'assets/images/play-icon.png';
+  static const String takseMall = 'assets/images/taksemall.png';
+  static const String search = 'assets/images/search.png';
+  static const String notification = 'assets/images/notification.png';
+  static const String humburger = 'assets/images/hum-burger.png';
+  static const String leader = 'assets/images/leaders.png';
+  static const String question = 'assets/images/question.png';
+  static const String wallet = 'assets/images/wallet.png';
 }

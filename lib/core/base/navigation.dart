@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
 BuildContext get ctx => navigatorKey.currentState!.context;
 
 /// Use to push new screen which accept route and argument as nullable
