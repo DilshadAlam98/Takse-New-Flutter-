@@ -6,6 +6,7 @@ import 'package:takse/src/utils/app_dialog.dart';
 
 import '../../../../core/constant/global_const.dart';
 import '../../../source/api_source.dart';
+import '../model/login_with_password_req.dart';
 
 class AuthController extends GetxController {
   final _source = ApiSource();
@@ -49,6 +50,22 @@ class AuthController extends GetxController {
         if (data.isRegistered == false) {
           Get.toNamed(RouteConst.otpNo, arguments: {'number': num});
         }
+      },
+      onError: (e) {
+        AppDialog.hideLoader();
+        AppDialog.showErrorSnackBar(message: e.message);
+      },
+    );
+  }
+
+  void verifyMPIN(String number, String mpin) {
+    sendRequest(
+      onTry: () async {
+        AppDialog.showLoader();
+        final param = LoginWithPasswordRequest(fcmToken: "", mobileNumber: number, mpin: mpin);
+        final data = await _source.loginWithPassword(param);
+        AppDialog.showSuccessSnackBar(message: "Login Success");
+        Get.offAndToNamed(RouteConst.homeScreen);
       },
       onError: (e) {
         AppDialog.hideLoader();

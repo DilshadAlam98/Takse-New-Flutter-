@@ -5,6 +5,7 @@ import 'package:takse/core/components/common_appbar.dart';
 import 'package:takse/core/components/primary_button.dart';
 import 'package:takse/core/components/primary_dropdown.dart';
 import 'package:takse/core/constant/asset_const.dart';
+import 'package:takse/core/routes/route_const.dart';
 import 'package:takse/core/theme/app_colors.dart';
 import 'package:takse/core/theme/app_text_style.dart';
 import 'package:takse/src/features/auth/controller/registration_controller.dart';
@@ -24,10 +25,11 @@ class RegistrationScreen extends GetView<RegistrationController> {
       appBar: const CommonAppBar(title: "", elevation: 0),
       body: SafeArea(
         child: ListView(
-          physics: const NeverScrollableScrollPhysics(),
+          // physics: const NeverScrollableScrollPhysics(),
           children: [
             Image.asset(AssetConst.registerBG, height: 300),
             Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -37,9 +39,7 @@ class RegistrationScreen extends GetView<RegistrationController> {
               ),
               child: Form(
                 key: controller.formKey,
-                child: ListView(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -224,9 +224,9 @@ class RegistrationScreen extends GetView<RegistrationController> {
                               text: "Sign Up",
                               enable: controller.isAgreed.value,
                               onPressed: () {
-                                if (controller.formKey.currentState!.validate()) {
-                                  print("Validate");
-                                }
+                                // if (controller.formKey.currentState!.validate()) {
+                                Get.offAndToNamed(RouteConst.homeScreen);
+                                // }
                               },
                             )
                           ],

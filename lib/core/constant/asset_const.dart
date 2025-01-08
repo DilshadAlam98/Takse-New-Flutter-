@@ -37,4 +37,5 @@ class AssetConst {
   static const String leader = 'assets/images/leaders.png';
   static const String question = 'assets/images/question.png';
   static const String wallet = 'assets/images/wallet.png';
+  static const String otp = 'assets/images/otp.png';
 }

@@ -102,7 +102,7 @@ class RegistrationController extends GetxController {
 
   @override
   void onInit() {
-    // userTypeEntity = Get.arguments['userType'];
+    userTypeEntity = Get.arguments['userType'];
     getStates();
     super.onInit();
   }

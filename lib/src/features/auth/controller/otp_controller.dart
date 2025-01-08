@@ -10,20 +10,24 @@ import '../../../utils/app_dialog.dart';
 import '../model/verify_otp_response.dart';
 
 class OtpController extends GetxController {
-  RxInt start = 30.obs;
-  RxBool showSec = false.obs;
   VerifyOtpResponse? otpRes;
   final _source = ApiSource();
   String number = "";
   RxBool enableBtn = false.obs;
+
+  var seconds = 60.obs; // Reactive variable for the countdown timer
+  Timer _timer = Timer(const Duration(), () {});
 
   final otpController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
   void onInit() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      startTimer();
+    });
     number = Get.arguments['number'];
-    startTimer();
+
     otpControllerListener();
     super.onInit();
   }
@@ -46,22 +50,6 @@ class OtpController extends GetxController {
     } else {
       return null;
     }
-  }
-
-  void startTimer() {
-    start.value = 30;
-    showSec.value = true;
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (start.value == 0) {
-        timer.cancel();
-        showSec.value = false;
-        update(['otp']);
-      } else {
-        start.value--;
-        showSec.value = true;
-        update(['otp']);
-      }
-    });
   }
 
   void verifyOTP() {
@@ -93,5 +81,23 @@ class OtpController extends GetxController {
         AppDialog.hideLoader();
       },
     );
+  }
+
+  void startTimer() {
+    if (_timer!.isActive) _timer!.cancel();
+    seconds.value = 60; // Reset the timer
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (seconds.value > 0) {
+        seconds.value--; // Decrease the timer
+      } else {
+        timer.cancel(); // Stop the timer when it reaches 0
+      }
+    });
+  }
+
+  @override
+  void onClose() {
+    _timer!.cancel(); // Clean up the timer when the controller is disposed
+    super.onClose();
   }
 }

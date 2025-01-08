@@ -7,6 +7,8 @@ import 'package:takse/src/features/auth/screens/enter_your_mobile_screen.dart';
 import 'package:takse/src/features/auth/screens/forget_password_screen.dart';
 import 'package:takse/src/features/auth/screens/registration_screen.dart';
 import 'package:takse/src/features/auth/screens/verify_otp_screen.dart';
+import 'package:takse/src/features/home/controller/home_controller.dart';
+import 'package:takse/src/features/home/screens/home_screen.dart';
 
 import '../../src/features/auth/screens/select_user_screen.dart';
 
@@ -40,6 +42,12 @@ class AppPages {
         name: RouteConst.forgetPassword,
         page: () => const ForgetPasswordScreen(),
         binding: BindingsBuilder(() => Get.lazyPut(() => ForgetPasswordController())),
+        transition: Transition.fadeIn,
+      ),
+      GetPage(
+        name: RouteConst.homeScreen,
+        page: () => const HomeScreen(),
+        binding: BindingsBuilder(() => Get.lazyPut(() => HomeController())),
         transition: Transition.fadeIn,
       ),
     ];

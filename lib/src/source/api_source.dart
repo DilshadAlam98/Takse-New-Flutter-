@@ -6,6 +6,8 @@ import 'package:takse/src/features/auth/model/district_data.dart';
 import 'package:takse/src/features/auth/model/getpincode_res.dart';
 import 'package:takse/src/features/auth/model/location_bloc_response.dart';
 import 'package:takse/src/features/auth/model/login_one_step.dart';
+import 'package:takse/src/features/auth/model/login_with_password_req.dart';
+import 'package:takse/src/features/auth/model/login_with_password_res.dart';
 import 'package:takse/src/features/auth/model/register_req.dart';
 import 'package:takse/src/features/auth/model/verify_otp_response.dart';
 
@@ -26,11 +28,23 @@ class ApiSource {
     }
   }
 
+  Future<LoginWithPasswordResponse> loginWithPassword(LoginWithPasswordRequest param) async {
+    try {
+      final res = await _client.dio.post(
+        ApiConst.verifyMPIM,
+        data: FormData.fromMap(param.toJson()),
+      );
+      return LoginWithPasswordResponse.fromJson(res.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<VerifyOtpResponse> verifyOTP(String otp, String number) async {
     try {
       final res = await _client.dio.post(
         ApiConst.verifyOTP,
-        data: FormData.fromMap({"mobile_number": otp, "otp": otp}),
+        data: FormData.fromMap({"mobile_number": number, "otp": otp}),
       );
       return VerifyOtpResponse.fromJson(res.data);
     } catch (e) {
