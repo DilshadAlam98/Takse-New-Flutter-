@@ -10,6 +10,8 @@ import 'package:takse/src/features/home/widget/home_cateogory_card.dart';
 import 'package:takse/src/features/home/widget/service_card.dart';
 import 'package:takse/src/utils/extensions.dart';
 
+import '../../../../core/components/app_divider.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -47,15 +49,17 @@ class HomeScreen extends StatelessWidget {
                   );
                 }).toList(),
               ),
+
               const SizedBox(height: 20),
               const HomeCategoryCard(),
               const SizedBox(height: 30),
+              const AppDivider(indent: 80, endIndent: 80),
 
               /// Govt Jobs Section
               const HeaderElement(header: "GOVERNMENT JOB FORM"),
               const SizedBox(height: 10),
               SizedBox(
-                height: 325,
+                height: 300,
                 child: ListView.builder(
                   itemCount: 30,
                   shrinkWrap: true,
@@ -71,6 +75,8 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 30),
 
               /// Top Services Sections
+              const AppDivider(indent: 80, endIndent: 80),
+
               const HeaderElement(header: "TOP SERVICES"),
               const SizedBox(height: 10),
 

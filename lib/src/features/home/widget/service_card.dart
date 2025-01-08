@@ -10,7 +10,7 @@ class ServiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.sizeOf(context).width * .7,
+      width: MediaQuery.sizeOf(context).width * .65,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -29,7 +29,7 @@ class ServiceCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(
-            height: 160,
+            height: 120,
             child: CommonNetworkImage(
               image:
                   "https://cdn.dnaindia.com/sites/default/files/2021/08/11/990042-pan-aadhaar.jpg?im=FitAndFill=(1200,900)",
@@ -67,10 +67,12 @@ class ServiceCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 15),
-          PrimaryButton(
-            text: "Order Now",
-            textStyle: AppTextStyle.headline.large.black,
-            onPressed: () {},
+          Flexible(
+            child: PrimaryButton(
+              text: "Order Now",
+              textStyle: AppTextStyle.headline.large.black,
+              onPressed: () {},
+            ),
           )
         ],
       ),

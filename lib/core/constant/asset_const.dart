@@ -38,4 +38,25 @@ class AssetConst {
   static const String question = 'assets/images/question.png';
   static const String wallet = 'assets/images/wallet.png';
   static const String otp = 'assets/images/otp.png';
+  static const String cooperation = 'assets/images/cooperation.png';
+  static const String user = 'assets/images/user.png';
+  static const String manageOrder = 'assets/images/project 1.png';
+  static const String business = 'assets/images/business 1.png';
+  static const String group = 'assets/images/Group 77.png';
+  static const String list = 'assets/images/list.png';
+  static const String referAndEarn = 'assets/images/Group 83.png';
+  static const String certificate = 'assets/images/certificate.png';
+  static const String companyInfo = 'assets/images/company_info.png';
+  static const String aboutUs = 'assets/images/about-us.png';
+  static const String privacyAndPolicy = 'assets/images/privacyAndPolicy.png';
+  static const String cashback = 'assets/images/cashback.png';
+  static const String termsAndConditions = 'assets/images/terms-and-conditions.png';
+  static const String companyDocs = 'assets/images/companyDocs.png';
+  static const String email = 'assets/images/email 1.png';
+  static const String settings = 'assets/images/settings.png';
+  static const String theme = 'assets/images/theme.png';
+  static const String language = 'assets/images/language.png';
+  static const String notificationBell = 'assets/images/notification_bell.png';
+  static const String appUpdate = 'assets/images/appupdate.png';
+  static const String logout = 'assets/images/logout.png';
 }
