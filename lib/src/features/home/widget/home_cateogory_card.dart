@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:takse/core/components/app_divider.dart';
 import 'package:takse/core/components/header_element.dart';
 
 import '../../../../core/constant/asset_const.dart';
@@ -23,7 +25,9 @@ class HomeCategoryCard extends StatelessWidget {
             header: "Category",
             mainAxisAlignment: MainAxisAlignment.center,
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: 8.h),
+          const AppDivider(endIndent: 90, indent: 90),
+          SizedBox(height: 22.h),
           Row(
             children: List.generate(
               4,

@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
       appBar: _appBar(),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14.0),
+          padding: const EdgeInsets.only(right: 12, top: 14.0, left: 12, bottom: 10),
           child: ListView(
             children: [
               /// Carousel Sliders
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
               const HeaderElement(header: "GOVERNMENT JOB FORM"),
               const SizedBox(height: 10),
               SizedBox(
-                height: 300,
+                height: 285,
                 child: ListView.builder(
                   itemCount: 30,
                   shrinkWrap: true,
@@ -107,10 +107,11 @@ class HomeScreen extends StatelessWidget {
       leading: Builder(
         builder: (context) {
           return GestureDetector(
-              onTap: () {
-                context.openDrawer();
-              },
-              child: Image.asset(AssetConst.humburger, cacheWidth: 30));
+            onTap: () {
+              context.openDrawer();
+            },
+            child: Image.asset(AssetConst.humburger, cacheWidth: 30),
+          );
         },
       ),
       title: ClipRRect(
@@ -142,10 +143,11 @@ class HomeScreen extends StatelessWidget {
       ),
       actions: [
         GestureDetector(
-            onTap: () {
-              console("Tap Notification");
-            },
-            child: Image.asset(AssetConst.notification, width: 40)),
+          onTap: () {
+            console("Tap Notification");
+          },
+          child: Image.asset(AssetConst.notification, width: 40),
+        ),
         const SizedBox(width: 15),
       ],
     );

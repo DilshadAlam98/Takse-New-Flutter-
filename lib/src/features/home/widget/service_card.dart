@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:takse/core/components/common_network_image.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:takse/core/components/primary_button.dart';
 import 'package:takse/core/theme/app_colors.dart';
 import 'package:takse/core/theme/app_text_style.dart';
+
+import '../../../../core/components/common_network_image.dart';
 
 class ServiceCard extends StatelessWidget {
   const ServiceCard({super.key});
@@ -10,7 +12,7 @@ class ServiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.sizeOf(context).width * .65,
+      width: ScreenUtil().screenWidth * 0.6,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -28,20 +30,27 @@ class ServiceCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(
-            height: 120,
-            child: CommonNetworkImage(
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.blue,
+              border: Border.all(color: AppColors.grey),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            height: 120.h,
+            width: double.infinity,
+            child: const CommonNetworkImage(
               image:
                   "https://cdn.dnaindia.com/sites/default/files/2021/08/11/990042-pan-aadhaar.jpg?im=FitAndFill=(1200,900)",
             ),
           ),
+          SizedBox(height: 10.h),
           Text(
             "SSC Apply form till date aftereffect",
             textAlign: TextAlign.center,
             style: AppTextStyle.headline.medium.ellipsis,
             maxLines: 2,
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: 10.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -51,7 +60,7 @@ class ServiceCard extends StatelessWidget {
                   style: AppTextStyle.headline.small.regular,
                 ),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10.h),
               RichText(
                 text: TextSpan(
                   style: AppTextStyle.title.large.green,
@@ -66,9 +75,10 @@ class ServiceCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: 15.h),
           Flexible(
             child: PrimaryButton(
+              height: 40,
               text: "Order Now",
               textStyle: AppTextStyle.headline.large.black,
               onPressed: () {},
