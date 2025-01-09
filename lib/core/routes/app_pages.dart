@@ -9,6 +9,10 @@ import 'package:takse/src/features/auth/screens/registration_screen.dart';
 import 'package:takse/src/features/auth/screens/verify_otp_screen.dart';
 import 'package:takse/src/features/home/controller/home_controller.dart';
 import 'package:takse/src/features/home/screens/home_screen.dart';
+import 'package:takse/src/features/manage_order/controller/manage_order_manage.dart';
+import 'package:takse/src/features/manage_order/screen/manage_order_screen.dart';
+import 'package:takse/src/features/profile/controller/user_profile_controller.dart';
+import 'package:takse/src/features/profile/screens/user_profile_screen.dart';
 
 import '../../src/features/auth/screens/select_user_screen.dart';
 
@@ -48,6 +52,18 @@ class AppPages {
         name: RouteConst.homeScreen,
         page: () => const HomeScreen(),
         binding: BindingsBuilder(() => Get.lazyPut(() => HomeController())),
+        transition: Transition.fadeIn,
+      ),
+      GetPage(
+        name: RouteConst.userProfileScreen,
+        page: () => const UserProfileScreen(),
+        binding: BindingsBuilder(() => Get.lazyPut(() => UserProfileController())),
+        transition: Transition.fadeIn,
+      ),
+      GetPage(
+        name: RouteConst.manageOrder,
+        page: () => const ManageOrderScreen(),
+        binding: BindingsBuilder(() => Get.lazyPut(() => ManageOrderController())),
         transition: Transition.fadeIn,
       ),
     ];

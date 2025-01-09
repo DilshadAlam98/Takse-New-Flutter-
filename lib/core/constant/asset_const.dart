@@ -59,4 +59,8 @@ class AssetConst {
   static const String notificationBell = 'assets/images/notification_bell.png';
   static const String appUpdate = 'assets/images/appupdate.png';
   static const String logout = 'assets/images/logout.png';
+  static const String camera = 'assets/images/camera.png';
+  static const String refer2 = 'assets/images/refer 2.png';
+  static const String editPen = 'assets/images/edit.png';
+  static const String tick = 'assets/images/tick 1.png';
 }

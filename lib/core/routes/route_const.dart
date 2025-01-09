@@ -6,4 +6,6 @@ class RouteConst {
   static const String registration = "/registration";
   static const String forgetPassword = "/forgetPassword";
   static const String homeScreen = "/home-screen";
+  static const String userProfileScreen = "/user-profile-screen";
+  static const String manageOrder = "/manage-order";
 }

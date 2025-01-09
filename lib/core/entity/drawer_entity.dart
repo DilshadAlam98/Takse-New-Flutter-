@@ -9,14 +9,14 @@ class DrawerEntity {
 
   static List<DrawerEntity> getSideMenuOptions() {
     return [
-      DrawerEntity(label: "Convert into Business User", asset: AssetConst.cooperation),
-      DrawerEntity(label: "Profile Update", asset: AssetConst.user),
-      DrawerEntity(label: "Manage Order", asset: AssetConst.manageOrder),
-      DrawerEntity(label: "My Business Report", asset: AssetConst.business),
-      DrawerEntity(label: "My Coupon", asset: AssetConst.group),
-      DrawerEntity(label: "My wish list", asset: AssetConst.list),
-      DrawerEntity(label: "Refer and earn", asset: AssetConst.referAndEarn),
-      DrawerEntity(label: "Generate Certificate", asset: AssetConst.certificate),
+      DrawerEntity(label: "Convert into Business User", asset: AssetConst.cooperation, index: 0),
+      DrawerEntity(label: "Profile Update", asset: AssetConst.user, index: 1),
+      DrawerEntity(label: "Manage Order", asset: AssetConst.manageOrder, index: 2),
+      DrawerEntity(label: "My Business Report", asset: AssetConst.business, index: 3),
+      DrawerEntity(label: "My Coupon", asset: AssetConst.group, index: 4),
+      DrawerEntity(label: "My wish list", asset: AssetConst.list, index: 5),
+      DrawerEntity(label: "Refer and earn", asset: AssetConst.referAndEarn, index: 6),
+      DrawerEntity(label: "Generate Certificate", asset: AssetConst.certificate, index: 7),
     ];
   }
 
