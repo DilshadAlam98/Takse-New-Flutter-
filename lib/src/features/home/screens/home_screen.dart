@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
 
               SizedBox(
-                height: 325,
+                height: 285,
                 child: ListView.builder(
                   itemCount: 30,
                   shrinkWrap: true,

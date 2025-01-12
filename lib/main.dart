@@ -6,7 +6,7 @@ import 'package:takse/core/config/api_config/rest_client.dart';
 import 'package:takse/core/constant/api_const.dart';
 import 'package:takse/core/routes/app_pages.dart';
 import 'package:takse/core/theme/app_theme.dart';
-import 'package:takse/src/shared_widget/bottom_nav_bar.dart';
+import 'package:takse/src/features/auth/screens/enter_your_mobile_screen.dart';
 
 void main() {
   RestClient.getInstance(baseUrl: ApiConst.baseUrl);
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           navigatorKey: navigatorKey,
           getPages: AppPages.getPageBindings(),
           theme: AppTheme.getAppTheme(),
-          home: const CommonBottomAppBar(),
+          home: EnterYourMobileScreen(),
         );
       },
     );
