@@ -122,6 +122,7 @@ class _MyTextStyle extends TextStyle {
   _MyTextStyle get zeroLineHeight => _MyTextStyle(copyWith(height: 0));
 
   _MyTextStyle get red => _MyTextStyle(copyWith(color: AppColors.red));
+  _MyTextStyle get lightRed => _MyTextStyle(copyWith(color: AppColors.lightRed));
 
   _MyTextStyle get black => _MyTextStyle(copyWith(color: AppColors.black));
 

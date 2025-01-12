@@ -63,4 +63,10 @@ class AssetConst {
   static const String refer2 = 'assets/images/refer 2.png';
   static const String editPen = 'assets/images/edit.png';
   static const String tick = 'assets/images/tick 1.png';
+  static const String order = 'assets/images/order 1.png';
+  static const String order1 = 'assets/images/order 4.png';
+  static const String order2 = 'assets/images/order 5.png';
+  static const String order3 = 'assets/images/order 2.png';
+  static const String order4 = 'assets/images/order 3.png';
+  static const String untitledDoc = 'assets/images/untitiled-design.png';
 }

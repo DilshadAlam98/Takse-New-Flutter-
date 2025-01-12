@@ -26,10 +26,10 @@ class CommonBottomAppBar extends GetView<BottomNavController> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        height: 70,
+        height: 58,
         elevation: 12,
         notchMargin: 10,
-        padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
         shape: const CircularNotchedRectangle(),
         color: AppColors.yellow1,
         child: Row(
