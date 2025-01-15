@@ -11,4 +11,9 @@ class ApiConst {
   static const String blocks = "blocks";
   static const String register = "register";
   static const String getPinCode = "pincode";
+  static const String myAccount = "my-account";
+  static const String notification = "my-notifications";
+  static const String socialMediaLinks = "social-media-links";
+  static const String banners = "banners";
+  static const String home = "home";
 }

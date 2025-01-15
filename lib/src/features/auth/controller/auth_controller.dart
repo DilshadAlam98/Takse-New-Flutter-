@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:takse/core/local/app_session.dart';
+import 'package:takse/core/local/local_const.dart';
 import 'package:takse/core/routes/route_const.dart';
 import 'package:takse/src/features/auth/model/login_one_step.dart';
 import 'package:takse/src/features/auth/model/verify_otp_response.dart';
@@ -10,6 +14,7 @@ import '../model/login_with_password_req.dart';
 
 class AuthController extends GetxController {
   final _source = ApiSource();
+  final _appSession = AppSession();
 
   RxBool hasPassVisibility = false.obs;
   LoginOneStep? loginRes;
@@ -65,6 +70,7 @@ class AuthController extends GetxController {
         final param = LoginWithPasswordRequest(fcmToken: "", mobileNumber: number, mpin: mpin);
         final data = await _source.loginWithPassword(param);
         AppDialog.showSuccessSnackBar(message: "Login Success");
+        await _appSession.setString(key: LocalConst.loginDetails, value: jsonEncode(data.toJson()));
         Get.offAndToNamed(RouteConst.homeScreen);
       },
       onError: (e) {

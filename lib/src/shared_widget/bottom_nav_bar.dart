@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:takse/core/theme/app_colors.dart';
 import 'package:takse/core/theme/app_text_style.dart';
-import 'package:takse/src/features/home/screens/home_screen.dart';
 import 'package:takse/src/shared_widget/bottom_nav_controller.dart';
 
 import '../../core/constant/asset_const.dart';
 import '../../core/entity/bottom_bar_entity.dart';
+import '../features/home/screens/home_screen.dart';
 
 class CommonBottomAppBar extends GetView<BottomNavController> {
   const CommonBottomAppBar({
@@ -18,12 +18,10 @@ class CommonBottomAppBar extends GetView<BottomNavController> {
     Get.put(BottomNavController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Obx(
-          () {
-            return getPages()[controller.selectedIndex.value];
-          },
-        ),
+      body: Obx(
+        () {
+          return getPages()[controller.selectedIndex.value];
+        },
       ),
       bottomNavigationBar: BottomAppBar(
         height: 58,

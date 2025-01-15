@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/global_const.dart';
 
-mixin AppSession {
+class AppSession {
   final Future<SharedPreferences> _sharedPreferences = SharedPreferences.getInstance();
 
   Future<String?> getString(String key) async {

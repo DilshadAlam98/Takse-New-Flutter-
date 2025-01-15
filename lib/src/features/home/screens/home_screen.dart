@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:get/get.dart';
 import 'package:takse/core/base/navigation.dart';
 import 'package:takse/core/components/app_drawer.dart';
 import 'package:takse/core/components/header_element.dart';
 import 'package:takse/core/constant/asset_const.dart';
 import 'package:takse/core/constant/global_const.dart';
 import 'package:takse/core/theme/app_colors.dart';
+import 'package:takse/src/features/home/controller/home_controller.dart';
 import 'package:takse/src/features/home/widget/home_cateogory_card.dart';
 import 'package:takse/src/features/home/widget/service_card.dart';
 import 'package:takse/src/utils/extensions.dart';
 
 import '../../../../core/components/app_divider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends GetView<HomeController> {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(HomeController());
     return Scaffold(
       key: scaffoldKey,
       drawer: const AppDrawer(),
@@ -24,77 +27,81 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(right: 12, top: 14.0, left: 12, bottom: 10),
-          child: ListView(
-            children: [
-              /// Carousel Sliders
-              ExpandableCarousel(
-                options: ExpandableCarouselOptions(
-                  autoPlayInterval: const Duration(seconds: 5),
-                ),
-                items: [1, 2, 3, 4, 5].map((i) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                        alignment: Alignment.center,
-                        height: 200,
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                        decoration: BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.circular(10)),
-                        child: Text(
-                          'text $i',
-                          style: const TextStyle(fontSize: 16.0),
-                        ),
+          child: GetBuilder<HomeController>(
+            builder: (controller) {
+              return ListView(
+                children: [
+                  /// Carousel Sliders
+                  ExpandableCarousel(
+                    options: ExpandableCarouselOptions(
+                      autoPlayInterval: const Duration(seconds: 5),
+                    ),
+                    items: [1, 2, 3, 4, 5].map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            alignment: Alignment.center,
+                            height: 200,
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                            decoration: BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.circular(10)),
+                            child: Text(
+                              'text $i',
+                              style: const TextStyle(fontSize: 16.0),
+                            ),
+                          );
+                        },
                       );
-                    },
-                  );
-                }).toList(),
-              ),
+                    }).toList(),
+                  ),
 
-              const SizedBox(height: 20),
-              const HomeCategoryCard(),
-              const SizedBox(height: 30),
-              const AppDivider(indent: 80, endIndent: 80),
+                  const SizedBox(height: 20),
+                  const HomeCategoryCard(),
+                  const SizedBox(height: 30),
+                  const AppDivider(indent: 80, endIndent: 80),
 
-              /// Govt Jobs Section
-              const HeaderElement(header: "GOVERNMENT JOB FORM"),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 285,
-                child: ListView.builder(
-                  itemCount: 30,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: ServiceCard(),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 30),
+                  /// Govt Jobs Section
+                  const HeaderElement(header: "GOVERNMENT JOB FORM"),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 285,
+                    child: ListView.builder(
+                      itemCount: 30,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ServiceCard(),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30),
 
-              /// Top Services Sections
-              const AppDivider(indent: 80, endIndent: 80),
+                  /// Top Services Sections
+                  const AppDivider(indent: 80, endIndent: 80),
 
-              const HeaderElement(header: "TOP SERVICES"),
-              const SizedBox(height: 10),
+                  const HeaderElement(header: "TOP SERVICES"),
+                  const SizedBox(height: 10),
 
-              SizedBox(
-                height: 285,
-                child: ListView.builder(
-                  itemCount: 30,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: ServiceCard(),
-                    );
-                  },
-                ),
-              )
-            ],
+                  SizedBox(
+                    height: 285,
+                    child: ListView.builder(
+                      itemCount: 30,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ServiceCard(),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              );
+            },
           ),
         ),
       ),

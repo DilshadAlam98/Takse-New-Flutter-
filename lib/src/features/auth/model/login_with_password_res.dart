@@ -17,4 +17,13 @@ class LoginWithPasswordResponse {
         message: json["message"] ?? '',
         userid: (json['user_id'] ?? 0).toString(),
       );
+
+  Map<String, dynamic> toJson() {
+    return {
+      "status": status,
+      "token": token,
+      "message": message,
+      "user_id": int.tryParse(userid) ?? 0,
+    };
+  }
 }

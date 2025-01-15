@@ -78,7 +78,7 @@ class ServiceCard extends StatelessWidget {
           SizedBox(height: 15.h),
           Flexible(
             child: PrimaryButton(
-              height: 40,
+              height: 40.h,
               text: "Order Now",
               textStyle: AppTextStyle.headline.large.black,
               onPressed: () {},

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:takse/src/utils/dialog_widget/topup_dialog.dart';
 
 import '../../core/base/app_loader.dart';
@@ -83,7 +84,7 @@ class AppDialog {
     _isLoaderShowing = true;
     return showDialog(
       barrierDismissible: false,
-      context: ctx,
+      context: Get.context ?? ctx,
       builder: (context) => AppLoader(isLoading: _isLoaderShowing, opacity: 0, child: const SizedBox()),
     );
   }

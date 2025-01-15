@@ -8,4 +8,5 @@ class RouteConst {
   static const String homeScreen = "/home-screen";
   static const String userProfileScreen = "/user-profile-screen";
   static const String manageOrder = "/manage-order";
+  static const String notificationScreen = "/notification-screen";
 }

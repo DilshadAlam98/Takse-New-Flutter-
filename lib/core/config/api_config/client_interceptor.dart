@@ -4,15 +4,23 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:screwdriver/screwdriver.dart';
+import 'package:takse/core/local/app_session.dart';
+import 'package:takse/core/local/local_const.dart';
+import 'package:takse/src/features/auth/model/login_with_password_res.dart';
 
 import '../../constant/global_const.dart';
 
 class ClientInterceptor extends Interceptor {
   @override
   Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    // options.headers.addAll({
-    //   "Authorization": "Bearer ${await AppSession().getString(AppConst().accessToken)}",
-    // });
+    final user = await AppSession().getString(LocalConst.loginDetails);
+    LoginWithPasswordResponse? loginUser;
+    if (user != null) {
+      loginUser = LoginWithPasswordResponse.fromJson(jsonDecode(user));
+    }
+    options.headers.addAll({
+      "Authorization": "Bearer ${loginUser?.token}",
+    });
 
     _apiLogger(options);
     super.onRequest(options, handler);
