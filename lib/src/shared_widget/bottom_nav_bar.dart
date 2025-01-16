@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:takse/core/theme/app_colors.dart';
 import 'package:takse/core/theme/app_text_style.dart';
+import 'package:takse/src/features/profile/screens/user_profile_screen.dart';
 import 'package:takse/src/shared_widget/bottom_nav_controller.dart';
 
 import '../../core/constant/asset_const.dart';
@@ -77,7 +78,7 @@ class CommonBottomAppBar extends GetView<BottomNavController> {
       const Center(child: Text("Help Screen")),
       const Center(child: Text("Wallet Screen")),
       const Center(child: Text("Training Screen")),
-      const Center(child: Text("Profile Screen")),
+      const UserProfileScreen(showBackArrow: false)
     ];
   }
 }

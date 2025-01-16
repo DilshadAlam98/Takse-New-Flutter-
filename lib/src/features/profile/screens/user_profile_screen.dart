@@ -10,10 +10,13 @@ import 'package:takse/core/theme/app_text_style.dart';
 import 'package:takse/src/features/profile/controller/user_profile_controller.dart';
 
 class UserProfileScreen extends GetView<UserProfileController> {
-  const UserProfileScreen({super.key});
+  const UserProfileScreen({super.key, this.showBackArrow = true});
+
+  final bool showBackArrow;
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => UserProfileController());
     return Scaffold(
       body: ListView(
         children: [
@@ -42,8 +45,9 @@ class UserProfileScreen extends GetView<UserProfileController> {
               children: [
                 Expanded(
                   child: AppTextField(
+                    controller: controller.nameController,
                     prefix: Image.asset(AssetConst.profileUser, cacheWidth: 26),
-                    hintText: "Golu Singh",
+                    hintText: "Name",
                     suffix: Image.asset(AssetConst.editPen, cacheWidth: 26),
                   ),
                 ),
@@ -58,31 +62,42 @@ class UserProfileScreen extends GetView<UserProfileController> {
             child: Column(
               children: [
                 AppTextField(
+                  readOnly: true,
+                  controller: controller.emailController,
                   prefix: Image.asset(AssetConst.closedMail, color: Colors.black, cacheWidth: 26),
-                  hintText: "sgolu57@gmail.com",
+                  hintText: "email",
                 ),
                 SizedBox(height: 12.h),
                 AppTextField(
+                  readOnly: true,
                   prefix: Image.asset(AssetConst.dial, color: Colors.black, cacheWidth: 26),
-                  hintText: "+91 8800719093",
+                  hintText: "mobile number",
+                  controller: controller.mobileController,
                 ),
                 SizedBox(height: 12.h),
                 AppTextField(
+                  readOnly: true,
                   prefix: Image.asset(AssetConst.closedMail, color: Colors.black, cacheWidth: 26),
                   hintText: "User Type",
+                  controller: controller.userTypeController,
                 ),
                 SizedBox(height: 31.h),
                 PrimaryButton(
                   text: "UPDATE",
                   borderRadius: 30,
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.updateProfile();
+                  },
                 ),
                 SizedBox(height: 40.h),
-                Text(
-                  "Your Account is Fully Activated for Life Time",
-                  textAlign: TextAlign.center,
-                  style: AppTextStyle.headline.medium.green.regular,
-                )
+                if (controller.profileDetails?.user?.registrationStatus == true) ...[
+                  Text(
+                    "Your Account is Fully Activated for Life Time",
+                    textAlign: TextAlign.center,
+                    style: AppTextStyle.headline.medium.green.regular,
+                  )
+                ] else
+                  ...[]
               ],
             ),
           )
@@ -144,12 +159,14 @@ class UserProfileScreen extends GetView<UserProfileController> {
             ),
           ),
         ),
-        IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 30),
-        ),
+        if (showBackArrow) ...[
+          IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(Icons.arrow_back_rounded, size: 30),
+          ),
+        ]
       ],
     );
   }

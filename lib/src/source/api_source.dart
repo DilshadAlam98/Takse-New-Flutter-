@@ -15,6 +15,7 @@ import 'package:takse/src/features/notifications/models/get_banners_res.dart';
 import 'package:takse/src/features/notifications/models/get_home_response.dart';
 import 'package:takse/src/features/notifications/models/get_social_media_link_res.dart';
 import 'package:takse/src/features/notifications/models/notifications_res.dart';
+import 'package:takse/src/features/profile/model/update_profile_req.dart';
 
 import '../features/auth/model/state_response.dart';
 
@@ -187,6 +188,18 @@ class ApiSource {
     try {
       final res = await _client.dio.get(ApiConst.home);
       return GetHomeRes.fromJson(res.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> updateProfile(UpdateProfileRequestData req) async {
+    try {
+      final res = await _client.dio.post(
+        ApiConst.manageProfile,
+        data: FormData.fromMap(await req.toJson()),
+      );
+      return res.data['message'];
     } catch (e) {
       rethrow;
     }

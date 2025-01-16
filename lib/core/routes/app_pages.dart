@@ -58,7 +58,7 @@ class AppPages {
       ),
       GetPage(
         name: RouteConst.userProfileScreen,
-        page: () => const UserProfileScreen(),
+        page: () => const UserProfileScreen(showBackArrow: true),
         binding: BindingsBuilder(() => Get.lazyPut(() => UserProfileController())),
         transition: Transition.fadeIn,
       ),

@@ -16,4 +16,5 @@ class ApiConst {
   static const String socialMediaLinks = "social-media-links";
   static const String banners = "banners";
   static const String home = "home";
+  static const String manageProfile = "manage-profile";
 }
