@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:takse/core/components/common_appbar.dart';
+import 'package:takse/src/features/auth/controller/registration_controller.dart';
 
 import '../../../../core/constant/asset_const.dart';
-import '../../../../core/entity/user_type_entity.dart';
-import '../../../../core/routes/route_const.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_style.dart';
 
@@ -14,6 +13,7 @@ class SelectUserTypeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(RegistrationController());
     return Scaffold(
         backgroundColor: AppColors.deepYellow,
         appBar: const CommonAppBar(title: "", elevation: 0),
@@ -37,47 +37,52 @@ class SelectUserTypeScreen extends StatelessWidget {
                     style: AppTextStyle.headline.large.deepYellow.regular,
                   ),
                   SizedBox(height: 15.h),
-                  ...UserTypeEntity.getUserTypes().map(
-                    (e) {
-                      return GestureDetector(
-                        onTap: () {
-                          Get.toNamed(RouteConst.registration, arguments: {"userType": e});
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 6),
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                          decoration: BoxDecoration(
-                            color: e.color,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 30.h,
-                                backgroundImage: AssetImage(e.asset!),
-                                backgroundColor: Colors.white,
-                              ),
-                              SizedBox(width: 15.h),
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(e.label, style: AppTextStyle.title.large.white),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      e.desc,
-                                      style: AppTextStyle.title.medium.regular.white,
+                  GetBuilder<RegistrationController>(
+                    builder: (controller) {
+                      return Column(
+                          children: controller.userRoles
+                              .map(
+                                (e) => GestureDetector(
+                                  onTap: () {
+                                    controller.selectUserRole(e);
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(vertical: 6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                                    decoration: BoxDecoration(
+                                      color: e?.color,
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                  ],
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 30.h,
+                                          backgroundImage: AssetImage(e?.asset ?? ""),
+                                          backgroundColor: Colors.white,
+                                        ),
+                                        SizedBox(width: 15.h),
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(e?.role ?? "", style: AppTextStyle.title.large.white),
+                                              const SizedBox(height: 5),
+                                              Text(
+                                                e?.desc ?? "",
+                                                style: AppTextStyle.title.medium.regular.white,
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               )
-                            ],
-                          ),
-                        ),
-                      );
+                              .toList());
                     },
                   ),
                   TextButton(

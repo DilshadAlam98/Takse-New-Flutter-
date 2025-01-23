@@ -12,7 +12,7 @@ import 'package:takse/core/local/local_const.dart';
 import 'package:takse/core/routes/app_pages.dart';
 import 'package:takse/core/theme/app_theme.dart';
 import 'package:takse/src/features/auth/model/login_with_password_res.dart';
-import 'package:takse/src/features/auth/screens/forget_password_screen.dart';
+import 'package:takse/src/features/auth/screens/select_user_screen.dart';
 import 'package:takse/src/shared_widget/bottom_nav_controller.dart';
 
 void main() async {
@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
           getPages: AppPages.getPageBindings(),
           initialBinding: BindingsBuilder(() => BottomNavController()),
           theme: AppTheme.getAppTheme(),
-          home: const ForgetPasswordScreen(),
+          home: SelectUserTypeScreen(),
         );
       },
     );

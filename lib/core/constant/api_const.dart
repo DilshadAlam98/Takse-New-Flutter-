@@ -19,4 +19,5 @@ class ApiConst {
   static const String home = "home";
   static const String manageProfile = "manage-profile";
   static const String sendResetOTPa = "send-password-reset-otp";
+  static const String getUserRoles = "get_roles";
 }

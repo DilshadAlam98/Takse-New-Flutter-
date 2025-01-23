@@ -2,14 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:screwdriver/screwdriver.dart';
 import 'package:takse/core/constant/global_const.dart';
-import 'package:takse/core/entity/user_type_entity.dart';
 import 'package:takse/src/features/auth/model/city_data.dart';
 import 'package:takse/src/features/auth/model/district_data.dart';
+import 'package:takse/src/features/auth/model/get_user_roles.dart';
 import 'package:takse/src/features/auth/model/location_bloc_response.dart';
 import 'package:takse/src/features/auth/model/register_req.dart';
 import 'package:takse/src/features/auth/model/state_response.dart';
 import 'package:takse/src/source/api_source.dart';
 import 'package:takse/src/utils/app_dialog.dart';
+
+import '../../../../core/routes/route_const.dart';
 
 class RegistrationController extends GetxController {
   /// Field Controllers--------
@@ -32,7 +34,9 @@ class RegistrationController extends GetxController {
   CityData? selectedCity;
   LocationBlock? selectedBloc;
   final _source = ApiSource();
-  late UserTypeEntity? userTypeEntity;
+  RxList<GetUserRoles?> userRoles = RxList();
+
+  GetUserRoles? selectedUserRole;
 
   RxBool isAgreed = false.obs;
 
@@ -102,9 +106,30 @@ class RegistrationController extends GetxController {
 
   @override
   void onInit() {
-    userTypeEntity = Get.arguments['userType'];
+    getUserRoles();
     getStates();
     super.onInit();
+  }
+
+  void getUserRoles() async {
+    sendRequest(
+      onTry: () async {
+        // AppDialog.showLoader();
+        final data = await _source.getUserRoles();
+        data.removeWhere((element) => element.role.toLowerCase() == 'tap');
+        userRoles.addAll(data);
+        // AppDialog.hideLoader();
+      },
+      onError: (e) {
+        // AppDialog.hideLoader();
+        print("Error:: $e");
+      },
+    );
+  }
+
+  void selectUserRole(GetUserRoles? role) {
+    selectedUserRole = role;
+    Get.toNamed(RouteConst.registration);
   }
 
   void getStates() {

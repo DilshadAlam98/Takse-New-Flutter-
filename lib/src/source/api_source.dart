@@ -4,6 +4,7 @@ import 'package:takse/core/constant/api_const.dart';
 import 'package:takse/src/features/auth/model/city_data.dart';
 import 'package:takse/src/features/auth/model/district_data.dart';
 import 'package:takse/src/features/auth/model/forget_password_req.dart';
+import 'package:takse/src/features/auth/model/get_user_roles.dart';
 import 'package:takse/src/features/auth/model/getpincode_res.dart';
 import 'package:takse/src/features/auth/model/location_bloc_response.dart';
 import 'package:takse/src/features/auth/model/login_one_step.dart';
@@ -225,6 +226,19 @@ class ApiSource {
         data: FormData.fromMap({"number_or_email": num}),
       );
       return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<GetUserRoles>> getUserRoles() async {
+    try {
+      List<GetUserRoles> userRoles = [];
+      final res = await _client.dio.get(ApiConst.getUserRoles);
+      for (var v in res.data) {
+        userRoles.add(GetUserRoles.fromJson(v));
+      }
+      return userRoles;
     } catch (e) {
       rethrow;
     }
