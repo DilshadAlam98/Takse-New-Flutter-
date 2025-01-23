@@ -5,6 +5,7 @@ class ApiConst {
   static const String checkNumber = "check-number";
   static const String verifyOTP = "verify-otp";
   static const String verifyMPIM = "verify-mpin";
+  static const String resetMPIM = "reset-mpin";
   static const String states = "states";
   static const String districts = "districts";
   static const String cities = "cities";
@@ -17,4 +18,5 @@ class ApiConst {
   static const String banners = "banners";
   static const String home = "home";
   static const String manageProfile = "manage-profile";
+  static const String sendResetOTPa = "send-password-reset-otp";
 }

@@ -3,6 +3,7 @@ import 'package:takse/core/config/api_config/rest_client.dart';
 import 'package:takse/core/constant/api_const.dart';
 import 'package:takse/src/features/auth/model/city_data.dart';
 import 'package:takse/src/features/auth/model/district_data.dart';
+import 'package:takse/src/features/auth/model/forget_password_req.dart';
 import 'package:takse/src/features/auth/model/getpincode_res.dart';
 import 'package:takse/src/features/auth/model/location_bloc_response.dart';
 import 'package:takse/src/features/auth/model/login_one_step.dart';
@@ -200,6 +201,30 @@ class ApiSource {
         data: FormData.fromMap(await req.toJson()),
       );
       return res.data['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> resetPassword(ForgetPasswordReq param) async {
+    try {
+      final res = await _client.dio.post(
+        ApiConst.resetMPIM,
+        data: FormData.fromMap(param.toJson()),
+      );
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> sendResetPasswordOtp({required String num}) async {
+    try {
+      final res = await _client.dio.post(
+        ApiConst.sendResetOTPa,
+        data: FormData.fromMap({"number_or_email": num}),
+      );
+      return res.data;
     } catch (e) {
       rethrow;
     }
