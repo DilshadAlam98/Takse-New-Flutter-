@@ -112,20 +112,9 @@ class ApiSource {
     }
   }
 
-  Future<String> registerUser(RegisterRequest param) async {
+  Future<String> registerUser(RegistrationReq param) async {
     try {
-      final formData = FormData.fromMap({
-        "name": param.name,
-        "email": param.email,
-        "role_id": param.roleId,
-        "mobile_number": param.mobileNo,
-        "block_id": param.blockId,
-        "state_id": param.stateId,
-        "district_id": param.districtId,
-        "password": param.password,
-        "pincode": param.pincCode,
-        "referral_code": param.referralCode,
-      });
+      final formData = FormData.fromMap(param.toJson());
       final res = await _client.dio.post(ApiConst.register, data: formData);
       return res.data['message'];
     } catch (e) {
@@ -133,7 +122,7 @@ class ApiSource {
     }
   }
 
-  Future<List<GetPinCode>> getPinCode(String pinCode) async {
+  Future<List<GetPinCode>> getPinCodeWiseData(String pinCode) async {
     try {
       final res = await _client.dio.get("${ApiConst.getPinCode}/$pinCode");
       List<GetPinCode> pinCodeList = [];

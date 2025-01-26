@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:takse/core/local/app_session.dart';
 import 'package:takse/core/local/local_const.dart';
@@ -15,6 +16,9 @@ import '../model/login_with_password_req.dart';
 class AuthController extends GetxController {
   final _source = ApiSource();
   final _appSession = AppSession();
+
+  final mobileController = TextEditingController();
+  final mPINController = TextEditingController();
 
   RxBool hasPassVisibility = false.obs;
   LoginOneStep? loginRes;
@@ -43,17 +47,17 @@ class AuthController extends GetxController {
     update(['auth']);
   }
 
-  void sendOtp(String num) {
+  void sendOtp() {
     AppDialog.showLoader();
     sendRequest(
       onTry: () async {
-        final data = await _source.sentOpt(num);
+        final data = await _source.sentOpt(mobileController.text.trim());
         AppDialog.showSuccessSnackBar(message: "OTP send the mobile number");
         loginRes = data;
         update(['auth']);
         AppDialog.hideLoader();
         if (data.isRegistered == false) {
-          Get.toNamed(RouteConst.otpNo, arguments: {'number': num});
+          Get.toNamed(RouteConst.otpNo, arguments: {'number': mobileController.text.trim()});
         }
       },
       onError: (e) {
@@ -63,11 +67,15 @@ class AuthController extends GetxController {
     );
   }
 
-  void verifyMPIN(String number, String mpin) {
+  void verifyMPIN() {
     sendRequest(
       onTry: () async {
         AppDialog.showLoader();
-        final param = LoginWithPasswordRequest(fcmToken: "", mobileNumber: number, mpin: mpin);
+        final param = LoginWithPasswordRequest(
+          fcmToken: "",
+          mobileNumber: mobileController.text.trim(),
+          mpin: mPINController.text.trim(),
+        );
         final data = await _source.loginWithPassword(param);
         AppDialog.showSuccessSnackBar(message: "Login Success");
         await _appSession.setString(key: LocalConst.loginDetails, value: jsonEncode(data.toJson()));

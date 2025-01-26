@@ -16,8 +16,6 @@ class EnterYourMobileScreen extends GetView<AuthController> {
   EnterYourMobileScreen({super.key});
 
   final _form = GlobalKey<FormState>();
-  final _mobileController = TextEditingController();
-  final _mpinController = TextEditingController();
 
   final controller = Get.put(AuthController(), permanent: true);
 
@@ -63,7 +61,7 @@ class EnterYourMobileScreen extends GetView<AuthController> {
                           AppTextField(
                             prefix: Image.asset(AssetConst.dial, cacheWidth: 26),
                             hintText: "Enter Your Mobile Number",
-                            controller: _mobileController,
+                            controller: controller.mobileController,
                             validator: (val) => controller.validateNumber(val),
                           ),
                           if (controller.loginRes?.isRegistered == true) ...{
@@ -78,7 +76,7 @@ class EnterYourMobileScreen extends GetView<AuthController> {
                                 },
                                 child: _getVisibilityIcon(controller.hasPassVisibility.value),
                               ),
-                              controller: _mpinController,
+                              controller: controller.mPINController,
                               validator: (val) => controller.validateMPIN(val),
                             ),
                           },
@@ -90,10 +88,7 @@ class EnterYourMobileScreen extends GetView<AuthController> {
                                   text: "OPEN MY MALL",
                                   onPressed: () {
                                     if (isValidate) {
-                                      controller.verifyMPIN(
-                                        _mobileController.text.trim(),
-                                        _mpinController.text.trim(),
-                                      );
+                                      controller.verifyMPIN();
                                     }
                                   },
                                 ),
@@ -122,7 +117,7 @@ class EnterYourMobileScreen extends GetView<AuthController> {
                               text: "SUBMIT",
                               onPressed: () {
                                 if (isValidate) {
-                                  controller.sendOtp(_mobileController.text.trim());
+                                  controller.sendOtp();
                                 }
                               },
                             ),

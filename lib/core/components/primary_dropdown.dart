@@ -105,6 +105,7 @@ class CommonDropdown<T> extends StatelessWidget {
   final Color? fillColor;
   final bool enableSearch;
   final Widget? prefix;
+  final bool enable;
 
   const CommonDropdown({
     super.key,
@@ -119,6 +120,7 @@ class CommonDropdown<T> extends StatelessWidget {
     this.fillColor,
     this.enableSearch = false,
     this.prefix,
+    this.enable = true,
   });
 
   @override
@@ -127,6 +129,7 @@ class CommonDropdown<T> extends StatelessWidget {
       child: DropdownButtonFormField2<T>(
         isExpanded: true,
         isDense: true,
+
         style: AppTextStyle.title.medium.ellipsis,
         hint: Text(
           hint ?? "",
@@ -140,6 +143,7 @@ class CommonDropdown<T> extends StatelessWidget {
         onChanged: onChanged,
         validator: validator,
         decoration: InputDecoration(
+          enabled: enable,
           contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 2),
           prefixIcon: Container(
             width: 30,
