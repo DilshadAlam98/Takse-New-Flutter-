@@ -21,7 +21,6 @@ class UpdateProfileRequestData {
       data["picture"] = await multi.MultipartFile.fromFile(picture!.path, filename: picture!.path.split('/').last);
     }
 
-    print('updateProfileRequestDataToJson:  $data');
     return data;
   }
 }

@@ -17,7 +17,7 @@ class ApiConst {
   static const String socialMediaLinks = "social-media-links";
   static const String banners = "banners";
   static const String home = "home";
-  static const String manageProfile = "manage-profile";
+  static const String manageProfile = "manage-personal-details";
   static const String sendResetOTPa = "send-password-reset-otp";
   static const String getUserRoles = "get_roles";
 }

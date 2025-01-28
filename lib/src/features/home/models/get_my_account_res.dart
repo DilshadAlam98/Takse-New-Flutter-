@@ -4,7 +4,7 @@ class GetMyAccountRes {
   GetMyAccountRes({this.user});
 
   GetMyAccountRes.fromJson(Map<String, dynamic> json) {
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -32,9 +32,9 @@ class User {
   Address? address;
   Null? documents;
   Null? kycDetail;
-  Null? userQualification;
+  UserQualification? userQualification;
   Orders? orders;
-  RegistrationPayment? registrationPayment;
+  Null? registrationPayment;
   PermanentDistrict? role;
   UserPersonalDetail? userPersonalDetail;
   String? registrationFee;
@@ -78,10 +78,10 @@ class User {
     address = json['address'] != null ? new Address.fromJson(json['address']) : null;
     documents = json['documents'];
     kycDetail = json['kyc_detail'];
-    userQualification = json['user_qualification'];
+    userQualification =
+        json['user_qualification'] != null ? new UserQualification.fromJson(json['user_qualification']) : null;
     orders = json['orders'] != null ? new Orders.fromJson(json['orders']) : null;
-    registrationPayment =
-        json['registration_payment'] != null ? new RegistrationPayment.fromJson(json['registration_payment']) : null;
+    registrationPayment = json['registration_payment'];
     role = json['role'] != null ? new PermanentDistrict.fromJson(json['role']) : null;
     userPersonalDetail =
         json['user_personal_detail'] != null ? new UserPersonalDetail.fromJson(json['user_personal_detail']) : null;
@@ -107,13 +107,13 @@ class User {
     }
     data['documents'] = documents;
     data['kyc_detail'] = kycDetail;
-    data['user_qualification'] = userQualification;
+    if (userQualification != null) {
+      data['user_qualification'] = userQualification!.toJson();
+    }
     if (orders != null) {
       data['orders'] = orders!.toJson();
     }
-    if (registrationPayment != null) {
-      data['registration_payment'] = registrationPayment!.toJson();
-    }
+    data['registration_payment'] = registrationPayment;
     if (role != null) {
       data['role'] = role!.toJson();
     }
@@ -287,6 +287,39 @@ class PermanentDistrict {
   }
 }
 
+class UserQualification {
+  String? qualificationDegree;
+  String? tenthMarksheet;
+  Null? twelevethMarksheet;
+  Null? graduateMarksheet;
+  Null? mastersMarksheet;
+
+  UserQualification(
+      {this.qualificationDegree,
+      this.tenthMarksheet,
+      this.twelevethMarksheet,
+      this.graduateMarksheet,
+      this.mastersMarksheet});
+
+  UserQualification.fromJson(Map<String, dynamic> json) {
+    qualificationDegree = json['qualification_degree'];
+    tenthMarksheet = json['tenth_marksheet'];
+    twelevethMarksheet = json['tweleveth_marksheet'];
+    graduateMarksheet = json['graduate_marksheet'];
+    mastersMarksheet = json['masters_marksheet'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['qualification_degree'] = qualificationDegree;
+    data['tenth_marksheet'] = tenthMarksheet;
+    data['tweleveth_marksheet'] = twelevethMarksheet;
+    data['graduate_marksheet'] = graduateMarksheet;
+    data['masters_marksheet'] = mastersMarksheet;
+    return data;
+  }
+}
+
 class Orders {
   int? totalCount;
 
@@ -303,38 +336,22 @@ class Orders {
   }
 }
 
-class RegistrationPayment {
-  String? status;
-
-  RegistrationPayment({this.status});
-
-  RegistrationPayment.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    return data;
-  }
-}
-
 class UserPersonalDetail {
-  Null? bloodGroup;
-  Null? cast;
-  Null? category;
+  String? bloodGroup;
+  String? cast;
+  String? category;
   String? dob;
   String? email;
-  Null? fatherName;
-  Null? gender;
+  String? fatherName;
+  String? gender;
   String? id;
   String? mobileNumber;
-  Null? motherName;
+  String? motherName;
   String? name;
-  Null? picture;
+  String? picture;
   Null? pincode;
-  Null? profession;
-  Null? religion;
+  String? profession;
+  String? religion;
   Null? shopName;
 
   UserPersonalDetail(

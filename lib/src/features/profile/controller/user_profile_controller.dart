@@ -47,7 +47,7 @@ class UserProfileController extends GetxController {
     emailController.text = profileDetails?.user?.email ?? "";
     mobileController.text = "+91 ${profileDetails?.user?.mobileNumber ?? ""}";
     userTypeController.text = profileDetails?.user?.role?.name ?? "";
-    // update(['profile']);
+    update(['profile']);
   }
 
   void updateProfile() async {
@@ -61,7 +61,8 @@ class UserProfileController extends GetxController {
         );
         final message = await _source.updateProfile(req);
         AppDialog.showSuccessSnackBar(message: message);
-        await _source.getMyAccountDetails();
+        final accountRes = await _source.getMyAccountDetails();
+        await AppSession().setString(key: LocalConst.profileDetails, value: jsonEncode(accountRes.toJson()));
         getUserProfile();
         AppDialog.hideLoader();
       },
