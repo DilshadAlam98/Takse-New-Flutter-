@@ -165,7 +165,7 @@ class ApiSource {
   Future<List<GetBannersRes>> getBanners() async {
     try {
       List<GetBannersRes> banners = [];
-      final res = await _client.dio.get(ApiConst.socialMediaLinks);
+      final res = await _client.dio.get(ApiConst.banners);
       for (var v in res.data) {
         banners.add(GetBannersRes.fromJson(v));
       }
@@ -229,6 +229,12 @@ class ApiSource {
       }
       return userRoles;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> getServicesByType() async {
+    try {} catch (e) {
       rethrow;
     }
   }

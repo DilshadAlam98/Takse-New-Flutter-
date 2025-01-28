@@ -50,7 +50,7 @@ class ClientInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
-    errorLog("#### Error for the Api: --> ${err.requestOptions.path} \n${jsonEncode(err.response?.data)}");
+    errorLog("#### Error for the Api: --> ${err.requestOptions.uri} \n${jsonEncode(err.response?.data)}");
     super.onError(err, handler);
   }
 

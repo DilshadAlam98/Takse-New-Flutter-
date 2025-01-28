@@ -3,11 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:takse/core/components/app_divider.dart';
+import 'package:takse/core/components/primary_button.dart';
 import 'package:takse/core/constant/asset_const.dart';
 import 'package:takse/core/entity/drawer_entity.dart';
+import 'package:takse/core/local/app_session.dart';
 import 'package:takse/core/routes/route_const.dart';
 import 'package:takse/core/theme/app_colors.dart';
 import 'package:takse/core/theme/app_text_style.dart';
+import 'package:takse/src/utils/app_dialog.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -146,6 +149,7 @@ class AppDrawer extends StatelessWidget {
                       children: DrawerEntity.getSettingsDrawerOptions().map(
                         (e) {
                           return ListTile(
+                            onTap: () => _settingsOptionsClick(e),
                             title: Text(e.label, style: AppTextStyle.title.large),
                             leading: Image.asset(e.asset!, height: 28),
                           );
@@ -167,6 +171,30 @@ class AppDrawer extends StatelessWidget {
       Get.toNamed(RouteConst.userProfileScreen);
     } else if (e.index == 2) {
       Get.toNamed(RouteConst.manageOrder);
+    }
+  }
+
+  void _settingsOptionsClick(DrawerEntity e) {
+    if (e.index == 5) {
+      AppDialog.showConfirmation(
+        asset: AssetConst.logout,
+        btnColor: AppColors.red,
+        btnTextStyle: AppTextStyle.title.large.white,
+        secondaryBtn: PrimaryButton(
+          borderColor: Colors.transparent,
+          backgroundColor: AppColors.grey,
+          text: "Cancel",
+          onPressed: () => Get.back(),
+        ),
+        message: "Once you logout from the app, you will loss the saved credentials",
+        header: "Are you sure you want to logout?",
+        onConfirm: () async {
+          await AppSession().clearPreference();
+          AppDialog.showSuccessSnackBar(message: "Logout successfully");
+          Get.offAndToNamed(RouteConst.verifyNo);
+        },
+        confirmText: "Logout",
+      );
     }
   }
 }

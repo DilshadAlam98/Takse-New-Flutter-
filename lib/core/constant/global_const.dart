@@ -38,21 +38,21 @@ Future<T?> sendRequest<T>({
   try {
     return await onTry.call();
   } on SocketException catch (e) {
-    throw onError?.call(ErrorRes(title: "Error Occurred", message: "Something Went Wrong"));
+    return onError?.call(ErrorRes(title: "Error Occurred", message: "Something Went Wrong"));
   } on TimeoutException catch (e) {
-    throw onError?.call(ErrorRes(message: "Request Time out", title: 'Error Occurred'));
+    return onError?.call(ErrorRes(message: "Request Time out", title: 'Error Occurred'));
   } on FormatException catch (e) {
-    throw onError?.call(ErrorRes(message: "Something Went Wrong", title: "Error Occurred"));
+    return onError?.call(ErrorRes(message: "Something Went Wrong", title: "Error Occurred"));
   } on DioException catch (e) {
-    throw onError?.call(ErrorRes.fromJson(e.response?.data ?? {}));
+    return onError?.call(ErrorRes.fromJson(e.response?.data ?? {}));
   } on Exception catch (e) {
-    throw onError?.call(ErrorRes(message: "Something Went Wrong", title: "Error Occurred"));
+    return onError?.call(ErrorRes(message: "Something Went Wrong", title: "Error Occurred"));
   } on TypeError catch (e, s) {
     console("Error:- ${e.toString()}\nStacktrace:-${s.toString()}");
-    throw onError?.call(ErrorRes(message: "Something went wrong", title: "Error Occurred"));
+    return onError?.call(ErrorRes(message: "Something went wrong", title: "Error Occurred"));
   } catch (e, s) {
     console("Error:- ${e.toString()}\nStacktrace:-${s.toString()}");
-    throw onError?.call(ErrorRes(message: "Something Went Wrong", title: "Error Occurred"));
+    return onError?.call(ErrorRes(message: "Something Went Wrong", title: "Error Occurred"));
   } finally {
     if (onFinally != null) {
       onFinally.call();

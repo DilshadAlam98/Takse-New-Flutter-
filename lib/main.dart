@@ -13,6 +13,7 @@ import 'package:takse/core/routes/app_pages.dart';
 import 'package:takse/core/theme/app_theme.dart';
 import 'package:takse/src/features/auth/model/login_with_password_res.dart';
 import 'package:takse/src/features/auth/screens/enter_your_mobile_screen.dart';
+import 'package:takse/src/shared_widget/bottom_nav_bar.dart';
 import 'package:takse/src/shared_widget/bottom_nav_controller.dart';
 
 void main() async {
@@ -56,7 +57,7 @@ class _MyAppState extends State<MyApp> {
           getPages: AppPages.getPageBindings(),
           initialBinding: BindingsBuilder(() => BottomNavController()),
           theme: AppTheme.getAppTheme(),
-          home: EnterYourMobileScreen(),
+          home: loginUser == null ? EnterYourMobileScreen() : const CommonBottomAppBar(),
         );
       },
     );

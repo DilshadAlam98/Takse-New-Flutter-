@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:takse/core/constant/global_const.dart';
 import 'package:takse/core/local/app_session.dart';
@@ -22,13 +21,9 @@ class HomeController extends GetxController {
   Rx<int?> notificationCount = Rx<int?>(null);
 
   @override
-  void onInit() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        fetchApis();
-      },
-    );
-    super.onInit();
+  void onReady() {
+    fetchApis();
+    super.onReady();
   }
 
   void fetchApis() async {
@@ -42,6 +37,8 @@ class HomeController extends GetxController {
       ]);
       AppDialog.hideLoader();
     } catch (e) {
+      AppDialog.showErrorSnackBar(message: "Failed to Fetch");
+
       AppDialog.hideLoader();
     }
   }

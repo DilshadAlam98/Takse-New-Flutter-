@@ -138,7 +138,7 @@ class Address {
   Null? permanentPostOffice;
   Null? permanentPoliceStation;
   Null? permanentWardNo;
-  Null? permanentVillage;
+  String? permanentVillage;
   Null? permanentVillageId;
   Null? presentStateId;
   Null? presentDistrictId;

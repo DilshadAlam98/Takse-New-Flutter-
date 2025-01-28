@@ -53,6 +53,11 @@ class AppDialog {
     Widget? secondaryBtn,
     bool barrierDismissible = true,
     Widget? child,
+    Color? btnColor,
+    TextStyle? headerStyle,
+    TextStyle? messageStyle,
+    TextStyle? btnTextStyle,
+    String? asset,
   }) {
     showDialog(
       barrierDismissible: barrierDismissible,
@@ -63,6 +68,11 @@ class AppDialog {
         confirmText: confirmText,
         onConfirm: onConfirm,
         secondaryButton: secondaryBtn,
+        btnColor: btnColor,
+        headerStyle: headerStyle,
+        messageStyle: messageStyle,
+        btnTextStyle: btnTextStyle,
+        asset: asset,
         child: child,
       ),
     );
@@ -94,7 +104,7 @@ class AppDialog {
       return;
     }
     _isLoaderShowing = false;
-    return Navigator.pop(ctx);
+    return Get.back();
   }
 
   static Future<String> pickTime(BuildContext context) async {

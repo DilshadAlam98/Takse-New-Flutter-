@@ -79,6 +79,7 @@ class AuthController extends GetxController {
         final data = await _source.loginWithPassword(param);
         AppDialog.showSuccessSnackBar(message: "Login Success");
         await _appSession.setString(key: LocalConst.loginDetails, value: jsonEncode(data.toJson()));
+        AppDialog.hideLoader();
         Get.offAndToNamed(RouteConst.homeScreen);
       },
       onError: (e) {

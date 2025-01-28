@@ -33,12 +33,12 @@ class DrawerEntity {
 
   static List<DrawerEntity> getSettingsDrawerOptions() {
     return [
-      DrawerEntity(label: "My Settings", asset: AssetConst.settings),
-      DrawerEntity(label: "Select Theme", asset: AssetConst.theme),
-      DrawerEntity(label: "Select Language", asset: AssetConst.language),
-      DrawerEntity(label: "Subscribe To Alert", asset: AssetConst.notificationBell),
-      DrawerEntity(label: "App Update", asset: AssetConst.appUpdate),
-      DrawerEntity(label: "Logout", asset: AssetConst.logout),
+      DrawerEntity(label: "My Settings", asset: AssetConst.settings, index: 0),
+      DrawerEntity(label: "Select Theme", asset: AssetConst.theme, index: 1),
+      DrawerEntity(label: "Select Language", asset: AssetConst.language, index: 2),
+      DrawerEntity(label: "Subscribe To Alert", asset: AssetConst.notificationBell, index: 3),
+      DrawerEntity(label: "App Update", asset: AssetConst.appUpdate, index: 4),
+      DrawerEntity(label: "Logout", asset: AssetConst.logout, index: 5),
     ];
   }
 }

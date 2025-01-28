@@ -13,6 +13,11 @@ class ConfirmationDialog extends StatelessWidget {
     required this.confirmText,
     this.child,
     this.secondaryButton,
+    this.btnColor,
+    this.headerStyle,
+    this.messageStyle,
+    this.btnTextStyle,
+    this.asset,
   });
 
   final String header;
@@ -21,39 +26,59 @@ class ConfirmationDialog extends StatelessWidget {
   final String confirmText;
   final Widget? child;
   final Widget? secondaryButton;
+  final Color? btnColor;
+  final TextStyle? headerStyle;
+  final TextStyle? messageStyle;
+  final TextStyle? btnTextStyle;
+  final String? asset;
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
       alignment: Alignment.bottomCenter,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       insetPadding: const EdgeInsets.all(20),
       backgroundColor: Colors.white,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(header, style: AppTextStyle.display.medium),
+            if (asset != null) ...[
+              Image.asset(asset!, height: 40),
+              const SizedBox(height: 15),
+            ],
+            Text(
+              header,
+              style: headerStyle ?? AppTextStyle.headline.large,
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 20),
             const AppDivider(),
             const SizedBox(height: 20),
-            Text(message, style: AppTextStyle.display.small),
+            Text(message, style: messageStyle ?? AppTextStyle.title.large.regular),
             if (child != null) ...[
               const SizedBox(height: 20),
               child!,
             ],
-            const SizedBox(height: 20),
-            Column(
+            const SizedBox(height: 30),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                PrimaryButton(onPressed: onConfirm, text: confirmText),
                 if (secondaryButton != null) ...[
-                  const SizedBox(height: 20),
-                  secondaryButton ?? const SizedBox.shrink(),
+                  Flexible(child: secondaryButton ?? const SizedBox.shrink()),
+                  const SizedBox(width: 20),
                 ],
+                Flexible(
+                    child: PrimaryButton(
+                  backgroundColor: btnColor,
+                  borderColor: Colors.transparent,
+                  textStyle: btnTextStyle,
+                  onPressed: onConfirm,
+                  text: confirmText,
+                )),
               ],
             )
           ],
