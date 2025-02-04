@@ -113,7 +113,9 @@ class PaymentScreen extends StatelessWidget {
                               borderRadius: 6,
                               width: 150,
                               text: "Need Trial",
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.needTrial();
+                              },
                             )
                           ],
                         ),

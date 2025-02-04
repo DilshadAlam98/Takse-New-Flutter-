@@ -14,6 +14,7 @@ import 'package:takse/src/features/auth/model/register_req.dart';
 import 'package:takse/src/features/auth/model/verify_otp_response.dart';
 import 'package:takse/src/features/home/models/check_payment_details.dart';
 import 'package:takse/src/features/home/models/get_my_account_res.dart';
+import 'package:takse/src/features/home/models/local_support.dart';
 import 'package:takse/src/features/home/models/payment_request.dart';
 import 'package:takse/src/features/home/models/payment_url.dart';
 import 'package:takse/src/features/home/models/voucher_res.dart';
@@ -266,6 +267,15 @@ class ApiSource {
     try {
       final res = await _client.dio.post(ApiConst.paymentStatus, data: FormData.fromMap({"transaction_id": orderId}));
       return CheckPaymentStatus.fromJson(res.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<LocalSupport> getLocalSupport(int stateId) async {
+    try {
+      final res = await _client.dio.get("${ApiConst.localCallSupport}/$stateId");
+      return LocalSupport.fromJson(res.data[0]);
     } catch (e) {
       rethrow;
     }

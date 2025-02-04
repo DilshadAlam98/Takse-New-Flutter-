@@ -23,4 +23,5 @@ class ApiConst {
   static const String validateCoupon = 'validateRegistrationCoupon';
   static const String paymentUrl = 'payment-url';
   static const String paymentStatus = 'payment-status';
+  static const String localCallSupport = 'get-local-call-supporter';
 }

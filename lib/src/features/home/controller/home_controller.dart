@@ -13,6 +13,7 @@ import 'package:takse/src/features/notifications/models/get_home_response.dart';
 import 'package:takse/src/features/notifications/models/get_social_media_link_res.dart';
 import 'package:takse/src/source/api_source.dart';
 import 'package:takse/src/utils/app_dialog.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../models/payment_request.dart';
 
@@ -146,6 +147,28 @@ class HomeController extends GetxController {
         } else {
           AppDialog.hideLoader();
         }
+      },
+      onError: (e) {
+        AppDialog.hideLoader();
+        AppDialog.showErrorSnackBar(message: e.message);
+      },
+    );
+  }
+
+  void needTrial() {
+    sendRequest(
+      onTry: () async {
+        AppDialog.showLoader();
+        final stateId = accountRes?.user?.address?.permanentStateId ?? 0;
+        final res = await apiSource.getLocalSupport(stateId);
+        if (res.number.isEmpty) {
+          AppDialog.showErrorSnackBar(message: "Support not available at the moment");
+          AppDialog.hideLoader();
+          return;
+        }
+        AppDialog.hideLoader();
+
+        launchUrlString('tel: ${res.number}');
       },
       onError: (e) {
         AppDialog.hideLoader();
