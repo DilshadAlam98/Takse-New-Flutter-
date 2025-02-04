@@ -20,4 +20,7 @@ class ApiConst {
   static const String manageProfile = "manage-personal-details";
   static const String sendResetOTPa = "send-password-reset-otp";
   static const String getUserRoles = "get_roles";
+  static const String validateCoupon = 'validateRegistrationCoupon';
+  static const String paymentUrl = 'payment-url';
+  static const String paymentStatus = 'payment-status';
 }

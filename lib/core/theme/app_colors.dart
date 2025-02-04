@@ -19,4 +19,5 @@ class AppColors {
   static Color white = const Color(0xffFFFFFF);
   static Color green = const Color(0xff07B820);
   static Color purple = const Color(0xff70027F);
+  static Color borderColor = const Color.fromRGBO(0, 0, 0, 0.25);
 }

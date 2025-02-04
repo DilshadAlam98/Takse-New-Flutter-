@@ -12,7 +12,11 @@ import 'package:takse/src/features/auth/model/login_with_password_req.dart';
 import 'package:takse/src/features/auth/model/login_with_password_res.dart';
 import 'package:takse/src/features/auth/model/register_req.dart';
 import 'package:takse/src/features/auth/model/verify_otp_response.dart';
+import 'package:takse/src/features/home/models/check_payment_details.dart';
 import 'package:takse/src/features/home/models/get_my_account_res.dart';
+import 'package:takse/src/features/home/models/payment_request.dart';
+import 'package:takse/src/features/home/models/payment_url.dart';
+import 'package:takse/src/features/home/models/voucher_res.dart';
 import 'package:takse/src/features/notifications/models/get_banners_res.dart';
 import 'package:takse/src/features/notifications/models/get_home_response.dart';
 import 'package:takse/src/features/notifications/models/get_social_media_link_res.dart';
@@ -235,6 +239,34 @@ class ApiSource {
 
   Future<void> getServicesByType() async {
     try {} catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<VoucherRes> validateCoupon({required String amount, required String code}) async {
+    try {
+      final formData = FormData.fromMap({"amount": amount, "coupon_code": code});
+      final res = await _client.dio.post(ApiConst.validateCoupon, data: formData);
+      return VoucherRes.fromJson(res.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<PaymentUrl> getPaymentUrl(PaymentRequest param) async {
+    try {
+      final res = await _client.dio.post(ApiConst.paymentUrl, data: FormData.fromMap(param.toJson()));
+      return PaymentUrl.fromJson(res.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<CheckPaymentStatus> getPaymentStatus(String orderId) async {
+    try {
+      final res = await _client.dio.post(ApiConst.paymentStatus, data: FormData.fromMap({"transaction_id": orderId}));
+      return CheckPaymentStatus.fromJson(res.data);
+    } catch (e) {
       rethrow;
     }
   }

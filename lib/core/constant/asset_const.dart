@@ -70,3 +70,7 @@ class AssetConst {
   static const String order4 = 'assets/images/order 3.png';
   static const String untitledDoc = 'assets/images/untitiled-design.png';
 }
+
+class SvgAssetConst {
+  static const String takseMallService = "assets/images/svg/logo.svg";
+}
