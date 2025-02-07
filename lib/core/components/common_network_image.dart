@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:takse/core/local/local_const.dart';
 
 class CommonNetworkImage extends StatelessWidget {
   const CommonNetworkImage({super.key, this.image});
@@ -11,7 +12,7 @@ class CommonNetworkImage extends StatelessWidget {
     if (image == null) return const SizedBox();
     return CachedNetworkImage(
       fit: BoxFit.cover,
-      imageUrl: image!,
+      imageUrl: LocalConst.localImgUrl + image!,
       progressIndicatorBuilder: (context, url, downloadProgress) => Center(
         child: CircularProgressIndicator(value: downloadProgress.progress),
       ),

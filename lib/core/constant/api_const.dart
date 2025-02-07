@@ -24,4 +24,6 @@ class ApiConst {
   static const String paymentUrl = 'payment-url';
   static const String paymentStatus = 'payment-status';
   static const String localCallSupport = 'get-local-call-supporter';
+  static const String allCategories = 'categories';
+  static const String serviceByFeature = 'servicesByFeature';
 }

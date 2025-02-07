@@ -13,6 +13,8 @@ import 'package:takse/src/features/auth/model/login_with_password_res.dart';
 import 'package:takse/src/features/auth/model/register_req.dart';
 import 'package:takse/src/features/auth/model/verify_otp_response.dart';
 import 'package:takse/src/features/home/models/check_payment_details.dart';
+import 'package:takse/src/features/home/models/get_all_categories.dart';
+import 'package:takse/src/features/home/models/get_all_type_service_res.dart';
 import 'package:takse/src/features/home/models/get_my_account_res.dart';
 import 'package:takse/src/features/home/models/local_support.dart';
 import 'package:takse/src/features/home/models/payment_request.dart';
@@ -238,8 +240,11 @@ class ApiSource {
     }
   }
 
-  Future<void> getServicesByType() async {
-    try {} catch (e) {
+  Future<GetAllTypeServiceRes> getServicesByType({required String serviceType}) async {
+    try {
+      final res = await _client.dio.get("${ApiConst.serviceByFeature}/$serviceType");
+      return GetAllTypeServiceRes.fromJson(res.data);
+    } catch (e) {
       rethrow;
     }
   }
@@ -276,6 +281,18 @@ class ApiSource {
     try {
       final res = await _client.dio.get("${ApiConst.localCallSupport}/$stateId");
       return LocalSupport.fromJson(res.data[0]);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<GetAllCategories> getAllCategories({int first = 0, int rows = 10}) async {
+    try {
+      final res = await _client.dio.get(
+        ApiConst.allCategories,
+        queryParameters: {"first": first, "rows": rows},
+      );
+      return GetAllCategories.fromJson(res.data);
     } catch (e) {
       rethrow;
     }

@@ -3,12 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:takse/core/components/primary_button.dart';
 import 'package:takse/core/theme/app_colors.dart';
 import 'package:takse/core/theme/app_text_style.dart';
+import 'package:takse/src/features/home/models/get_all_type_service_res.dart';
 
 import '../../../../core/components/common_network_image.dart';
 
 class ServiceCard extends StatelessWidget {
-  const ServiceCard({super.key});
-
+  const ServiceCard({
+    super.key,
+    this.service,
+  });
+  final Service? service;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,14 +42,13 @@ class ServiceCard extends StatelessWidget {
             ),
             height: 120.h,
             width: double.infinity,
-            child: const CommonNetworkImage(
-              image:
-                  "https://cdn.dnaindia.com/sites/default/files/2021/08/11/990042-pan-aadhaar.jpg?im=FitAndFill=(1200,900)",
+            child: CommonNetworkImage(
+              image: service?.thumbnailImage ?? "",
             ),
           ),
           SizedBox(height: 10.h),
           Text(
-            "SSC Apply form till date aftereffect",
+            service?.title ?? "",
             textAlign: TextAlign.center,
             style: AppTextStyle.headline.medium.ellipsis,
             maxLines: 2,

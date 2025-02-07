@@ -7,8 +7,9 @@ import 'package:takse/core/constant/global_const.dart';
 import 'package:takse/core/local/app_session.dart';
 import 'package:takse/core/local/local_const.dart';
 import 'package:takse/core/routes/route_const.dart';
+import 'package:takse/src/features/home/models/get_all_categories.dart';
+import 'package:takse/src/features/home/models/get_all_type_service_res.dart';
 import 'package:takse/src/features/home/models/get_my_account_res.dart';
-import 'package:takse/src/features/home/screens/payment_screen.dart';
 import 'package:takse/src/features/notifications/models/get_home_response.dart';
 import 'package:takse/src/features/notifications/models/get_social_media_link_res.dart';
 import 'package:takse/src/source/api_source.dart';
@@ -22,6 +23,9 @@ class HomeController extends GetxController {
   Rx<GetSocialMediaRes>? socialLinks;
   Rx<List?> banners = Rx(null);
   Rx<GetHomeRes>? homeData;
+
+  GetAllCategories? allCategories;
+  ServicesNode? govtForms;
 
   final couponCodeController = TextEditingController();
 
@@ -44,8 +48,11 @@ class HomeController extends GetxController {
         getMyProfileAccount(),
         getSocialMediaLinks(),
         getBanners(),
-        getHome(),
+        getAllCategories(),
+        getGovForms(),
+        // getHome(),
       ]);
+      update();
       AppDialog.hideLoader();
     } catch (e) {
       AppDialog.showErrorSnackBar(message: "Failed to Fetch");
@@ -61,9 +68,9 @@ class HomeController extends GetxController {
         accountRes = data;
         registrationFee.value = data.user?.registrationFee.toString() ?? "";
         await _appSession.setString(key: LocalConst.profileDetails, value: jsonEncode(data.toJson()));
-        update();
+        // update();
         if (data.user?.registrationStatus == false) {
-          Get.off(PaymentScreen());
+          // Get.off(const PaymentScreen());
         }
       },
       onError: (e) {
@@ -190,5 +197,29 @@ class HomeController extends GetxController {
         AppDialog.showLoader();
       },
     );
+  }
+
+  Future<void> getAllCategories() async {
+    sendRequest(
+      onTry: () async {
+        final res = await apiSource.getAllCategories();
+        allCategories = res;
+      },
+      onError: (e) {
+        console("Error in all categories::: $e");
+      },
+    );
+  }
+
+  Future<void> getGovForms() async {
+    try {
+      sendRequest(
+        onTry: () async {
+          final res = await apiSource.getServicesByType(serviceType: "Sarkari Forms");
+          govtForms = res.data?.services;
+        },
+        onError: (e) {},
+      );
+    } catch (e) {}
   }
 }

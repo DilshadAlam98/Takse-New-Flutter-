@@ -56,7 +56,10 @@ class HomeScreen extends GetView<HomeController> {
                   ),
 
                   const SizedBox(height: 20),
-                  const HomeCategoryCard(),
+                  // Obx(
+                  //   () =>
+                  // ),
+                  HomeCategoryCard(allCategories: controller.allCategories?.rows ?? []),
                   const SizedBox(height: 30),
                   const AppDivider(indent: 80, endIndent: 80),
 
@@ -66,13 +69,14 @@ class HomeScreen extends GetView<HomeController> {
                   SizedBox(
                     height: 285,
                     child: ListView.builder(
-                      itemCount: 30,
+                      itemCount: controller.govtForms?.nodes?.length.clamp(0, 4) ?? 0,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: ServiceCard(),
+                        final service = controller.govtForms?.nodes?[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ServiceCard(service: service),
                         );
                       },
                     ),
