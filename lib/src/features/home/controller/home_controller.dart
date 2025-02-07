@@ -25,11 +25,15 @@ class HomeController extends GetxController {
   Rx<GetHomeRes>? homeData;
 
   GetAllCategories? allCategories;
-  ServicesNode? govtForms;
+  ServicesNode? govtService;
+  ServicesNode? topService;
+  ServicesNode? govtSchemes;
 
   final couponCodeController = TextEditingController();
 
   RxString registrationFee = "".obs;
+
+  bool isLoading = false;
 
   final apiSource = ApiSource();
   final _appSession = AppSession();
@@ -43,21 +47,25 @@ class HomeController extends GetxController {
 
   void fetchApis() async {
     try {
-      AppDialog.showLoader();
+      isLoading = true;
+      update();
+
       await Future.wait([
         getMyProfileAccount(),
         getSocialMediaLinks(),
         getBanners(),
         getAllCategories(),
-        getGovForms(),
-        // getHome(),
+        getGovtService(),
+        getTopService(),
+        getGovtSchemeService(),
       ]);
-      update();
-      AppDialog.hideLoader();
+
+      isLoading = false;
+      update(); // Notify UI after data is fetched
     } catch (e) {
       AppDialog.showErrorSnackBar(message: "Failed to Fetch");
-
-      AppDialog.hideLoader();
+      isLoading = false;
+      update(); // Ensure UI updates even on error
     }
   }
 
@@ -94,6 +102,7 @@ class HomeController extends GetxController {
       onTry: () async {
         final data = await apiSource.getBanners();
         banners.value = data;
+        update();
       },
       onError: (e) {},
     );
@@ -204,6 +213,7 @@ class HomeController extends GetxController {
       onTry: () async {
         final res = await apiSource.getAllCategories();
         allCategories = res;
+        update();
       },
       onError: (e) {
         console("Error in all categories::: $e");
@@ -211,12 +221,39 @@ class HomeController extends GetxController {
     );
   }
 
-  Future<void> getGovForms() async {
+  Future<void> getGovtService() async {
     try {
       sendRequest(
         onTry: () async {
           final res = await apiSource.getServicesByType(serviceType: "Sarkari Forms");
-          govtForms = res.data?.services;
+          govtService = res.data?.services;
+          update();
+        },
+        onError: (e) {},
+      );
+    } catch (e) {}
+  }
+
+  Future<void> getTopService() async {
+    try {
+      sendRequest(
+        onTry: () async {
+          final res = await apiSource.getServicesByType(serviceType: "TOP");
+          topService = res.data?.services;
+          update();
+        },
+        onError: (e) {},
+      );
+    } catch (e) {}
+  }
+
+  Future<void> getGovtSchemeService() async {
+    try {
+      sendRequest(
+        onTry: () async {
+          final res = await apiSource.getServicesByType(serviceType: "Govt. Schemes");
+          govtSchemes = res.data?.services;
+          update();
         },
         onError: (e) {},
       );

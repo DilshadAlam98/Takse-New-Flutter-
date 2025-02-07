@@ -32,7 +32,6 @@ class PaymentScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           GetBuilder<HomeController>(
-            init: HomeController(),
             builder: (controller) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
               child: Column(
