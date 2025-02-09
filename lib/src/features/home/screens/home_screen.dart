@@ -76,7 +76,9 @@ class HomeScreen extends GetView<HomeController> {
                     if (controller.govtService?.nodes?.isNotEmpty ?? false) ...[
                       HeaderElement(
                         header: "SARKARI JOB FORM",
-                        onSeeMore: () {},
+                        // onSeeMore: () {
+                        //   Get.toNamed(RouteConst.seeMoreService, arguments: "Sarkari Forms");
+                        // },
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
@@ -100,7 +102,9 @@ class HomeScreen extends GetView<HomeController> {
                     if (controller.govtSchemes?.nodes?.isNotEmpty ?? false) ...[
                       HeaderElement(
                         header: "GOVERNMENT SCHEME",
-                        onSeeMore: () {},
+                        // onSeeMore: () {
+                        //   Get.toNamed(RouteConst.seeMoreService, arguments: "Govt. Schemes");
+                        // },
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
@@ -126,7 +130,9 @@ class HomeScreen extends GetView<HomeController> {
                       const AppDivider(indent: 80, endIndent: 80),
                       HeaderElement(
                         header: "TOP SERVICES",
-                        onSeeMore: () {},
+                        // onSeeMore: () {
+                        //   Get.toNamed(RouteConst.seeMoreService, arguments: "Top");
+                        // },
                       ),
                       const SizedBox(height: 10),
                       SizedBox(

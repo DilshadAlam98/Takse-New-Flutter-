@@ -232,7 +232,9 @@ class HomeController extends GetxController {
         },
         onError: (e) {},
       );
-    } catch (e) {}
+    } catch (e) {
+      console("Error from Sarkari Forms");
+    }
   }
 
   Future<void> getTopService() async {
@@ -245,7 +247,9 @@ class HomeController extends GetxController {
         },
         onError: (e) {},
       );
-    } catch (e) {}
+    } catch (e) {
+      console("Error from Top Service");
+    }
   }
 
   Future<void> getGovtSchemeService() async {
@@ -258,6 +262,8 @@ class HomeController extends GetxController {
         },
         onError: (e) {},
       );
-    } catch (e) {}
+    } catch (e) {
+      console("Error from Govt. Schemes");
+    }
   }
 }

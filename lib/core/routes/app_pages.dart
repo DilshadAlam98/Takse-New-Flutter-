@@ -7,8 +7,10 @@ import 'package:takse/src/features/auth/screens/enter_your_mobile_screen.dart';
 import 'package:takse/src/features/auth/screens/forget_password_screen.dart';
 import 'package:takse/src/features/auth/screens/registration_screen.dart';
 import 'package:takse/src/features/auth/screens/verify_otp_screen.dart';
+import 'package:takse/src/features/home/binding/see_more_service_binding.dart';
 import 'package:takse/src/features/home/controller/home_controller.dart';
 import 'package:takse/src/features/home/screens/payment_screen.dart';
+import 'package:takse/src/features/home/screens/see_more_service_screen.dart';
 import 'package:takse/src/features/manage_order/controller/manage_order_manage.dart';
 import 'package:takse/src/features/manage_order/screen/manage_order_screen.dart';
 import 'package:takse/src/features/notifications/controller/notification_controller.dart';
@@ -79,6 +81,12 @@ class AppPages {
         name: RouteConst.notificationScreen,
         page: () => const PaymentScreen(),
         binding: BindingsBuilder(() => Get.lazyPut(() => HomeController())),
+        transition: Transition.fadeIn,
+      ),
+      GetPage(
+        name: RouteConst.seeMoreService,
+        page: () => const SeeMoreScreens(),
+        binding: SeeMoreServiceBinding(),
         transition: Transition.fadeIn,
       ),
     ];

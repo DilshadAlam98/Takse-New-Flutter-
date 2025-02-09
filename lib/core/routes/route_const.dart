@@ -10,4 +10,5 @@ class RouteConst {
   static const String manageOrder = "/manage-order";
   static const String notificationScreen = "/notification-screen";
   static const String registrationPayment = "/registration-payment";
+  static const String seeMoreService = "/see-more-service";
 }
