@@ -172,7 +172,10 @@ class ApiSource {
   Future<List<GetBannersRes>> getBanners() async {
     try {
       List<GetBannersRes> banners = [];
-      final res = await _client.dio.get(ApiConst.banners);
+      final res = await _client.dio.get(
+        ApiConst.banners,
+        queryParameters: {"rows": 40, "first": 0},
+      );
       for (var v in res.data) {
         banners.add(GetBannersRes.fromJson(v));
       }

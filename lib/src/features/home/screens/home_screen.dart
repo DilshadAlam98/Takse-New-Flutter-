@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:screwdriver/screwdriver.dart';
 import 'package:takse/core/base/navigation.dart';
 import 'package:takse/core/components/app_drawer.dart';
+import 'package:takse/core/components/common_network_image.dart';
 import 'package:takse/core/components/header_element.dart';
 import 'package:takse/core/constant/asset_const.dart';
 import 'package:takse/core/constant/global_const.dart';
@@ -30,106 +32,121 @@ class HomeScreen extends GetView<HomeController> {
           padding: const EdgeInsets.only(right: 12, top: 14.0, left: 12, bottom: 10),
           child: GetBuilder<HomeController>(
             builder: (controller) {
-              return ListView(
-                children: [
-                  /// Carousel Sliders
-                  ExpandableCarousel(
-                    options: ExpandableCarouselOptions(
-                      autoPlayInterval: const Duration(seconds: 5),
-                    ),
-                    items: [1, 2, 3, 4, 5].map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Container(
-                            alignment: Alignment.center,
-                            height: 200,
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                            decoration: BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.circular(10)),
-                            child: Text(
-                              'text $i',
-                              style: const TextStyle(fontSize: 16.0),
-                            ),
+              return SingleChildScrollView(
+                child: Column(
+                  // shrinkWrap: true,
+                  children: [
+                    /// Carousel Sliders
+                    if (controller.banners.isNotEmpty)
+                      ExpandableCarousel(
+                        options: ExpandableCarouselOptions(
+                          floatingIndicator: true,
+                          showIndicator: true,
+                          viewportFraction: 1,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 5),
+                        ),
+                        items: controller.banners.map((banner) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Container(
+                                alignment: Alignment.center,
+                                height: 200.h,
+                                width: MediaQuery.of(context).size.width,
+                                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: AppColors.grey),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: CommonNetworkImage(image: banner.picture, fit: BoxFit.contain),
+                              );
+                            },
                           );
-                        },
-                      );
-                    }).toList(),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  HomeCategoryCard(allCategories: controller.allCategories?.rows ?? []),
-
-                  const SizedBox(height: 30),
-                  const AppDivider(indent: 80, endIndent: 80),
-
-                  /// Govt Jobs Section
-                  if (controller.govtService?.nodes?.isNotEmpty ?? false) ...[
-                    const HeaderElement(header: "SARKARI JOB FORM"),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 285,
-                      child: ListView.builder(
-                        itemCount: controller.govtService?.nodes?.length.clamp(0, 4) ?? 0,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final service = controller.govtService?.nodes?[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: ServiceCard(service: service),
-                          );
-                        },
+                        }).toList(),
                       ),
-                    ),
+
+                    const SizedBox(height: 20),
+
+                    HomeCategoryCard(allCategories: controller.allCategories?.rows ?? []),
+
                     const SizedBox(height: 30),
-                  ],
+                    const AppDivider(indent: 80, endIndent: 80),
 
-                  /// Govt Jobs Section
-                  if (controller.govtSchemes?.nodes?.isNotEmpty ?? false) ...[
-                    const HeaderElement(header: "GOVERNMENT SCHEME"),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 285,
-                      child: ListView.builder(
-                        itemCount: controller.govtSchemes?.nodes?.length.clamp(0, 4) ?? 0,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final service = controller.govtSchemes?.nodes?[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: ServiceCard(service: service),
-                          );
-                        },
+                    /// Govt Jobs Section
+                    if (controller.govtService?.nodes?.isNotEmpty ?? false) ...[
+                      HeaderElement(
+                        header: "SARKARI JOB FORM",
+                        onSeeMore: () {},
                       ),
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-
-                  /// Top Services Sections
-                  const AppDivider(indent: 80, endIndent: 80),
-
-                  if (controller.topService?.nodes?.isNotEmpty ?? false) ...[
-                    const HeaderElement(header: "TOP SERVICES"),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 285,
-                      child: ListView.builder(
-                        itemCount: controller.topService?.nodes?.length.clamp(0, 4).length ?? 0,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final topService = controller.topService?.nodes?[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: ServiceCard(service: topService),
-                          );
-                        },
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: 285,
+                        child: ListView.builder(
+                          itemCount: controller.govtService?.nodes?.length.clamp(0, 4) ?? 0,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final service = controller.govtService?.nodes?[index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: ServiceCard(service: service),
+                            );
+                          },
+                        ),
                       ),
-                    )
-                  ]
-                ],
+                      const SizedBox(height: 30),
+                    ],
+
+                    /// Govt Jobs Section
+                    if (controller.govtSchemes?.nodes?.isNotEmpty ?? false) ...[
+                      HeaderElement(
+                        header: "GOVERNMENT SCHEME",
+                        onSeeMore: () {},
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: 285,
+                        child: ListView.builder(
+                          itemCount: controller.govtSchemes?.nodes?.length.clamp(0, 4) ?? 0,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final service = controller.govtSchemes?.nodes?[index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: ServiceCard(service: service),
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                    ],
+
+                    /// Top Services Sections
+
+                    if (controller.topService?.nodes?.isNotEmpty ?? false) ...[
+                      const AppDivider(indent: 80, endIndent: 80),
+                      HeaderElement(
+                        header: "TOP SERVICES",
+                        onSeeMore: () {},
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: 285,
+                        child: ListView.builder(
+                          itemCount: controller.topService?.nodes?.length.clamp(0, 4).length ?? 0,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final topService = controller.topService?.nodes?[index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: ServiceCard(service: topService),
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                    ],
+                  ],
+                ),
               );
             },
           ),

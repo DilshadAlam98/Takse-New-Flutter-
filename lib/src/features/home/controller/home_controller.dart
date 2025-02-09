@@ -16,12 +16,13 @@ import 'package:takse/src/source/api_source.dart';
 import 'package:takse/src/utils/app_dialog.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../notifications/models/get_banners_res.dart';
 import '../models/payment_request.dart';
 
 class HomeController extends GetxController {
   GetMyAccountRes? accountRes;
   Rx<GetSocialMediaRes>? socialLinks;
-  Rx<List?> banners = Rx(null);
+  List<GetBannersRes> banners = [];
   Rx<GetHomeRes>? homeData;
 
   GetAllCategories? allCategories;
@@ -101,7 +102,7 @@ class HomeController extends GetxController {
     sendRequest(
       onTry: () async {
         final data = await apiSource.getBanners();
-        banners.value = data;
+        banners = data;
         update();
       },
       onError: (e) {},
@@ -238,7 +239,7 @@ class HomeController extends GetxController {
     try {
       sendRequest(
         onTry: () async {
-          final res = await apiSource.getServicesByType(serviceType: "TOP");
+          final res = await apiSource.getServicesByType(serviceType: "Top");
           topService = res.data?.services;
           update();
         },

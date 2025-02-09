@@ -10,6 +10,7 @@ class HeaderElement extends StatelessWidget {
     this.imageWidth = 35,
     this.headerStyle,
     this.mainAxisAlignment = MainAxisAlignment.start,
+    this.onSeeMore,
   });
 
   final String header;
@@ -17,6 +18,7 @@ class HeaderElement extends StatelessWidget {
   final double imageWidth;
   final TextStyle? headerStyle;
   final MainAxisAlignment mainAxisAlignment;
+  final VoidCallback? onSeeMore;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,14 @@ class HeaderElement extends StatelessWidget {
           width: imageWidth,
         ),
         const SizedBox(width: 10),
-        Text(header, style: headerStyle ?? AppTextStyle.headline.large.black)
+        Text(header, style: headerStyle ?? AppTextStyle.headline.medium.black),
+        if (onSeeMore != null) ...[
+          const Spacer(),
+          TextButton(
+            onPressed: onSeeMore,
+            child: Text("See More", style: AppTextStyle.title.large.black),
+          ),
+        ],
       ],
     );
   }
