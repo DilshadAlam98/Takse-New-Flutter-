@@ -23,7 +23,7 @@ class EnterYourMobileScreen extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.deepYellow,
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: GetBuilder<AuthController>(
           id: 'auth',
@@ -70,6 +70,7 @@ class EnterYourMobileScreen extends GetView<AuthController> {
                               obscureText: controller.hasPassVisibility.value,
                               prefix: Image.asset(AssetConst.lock, cacheWidth: 26),
                               hintText: "Enter Your MPIN",
+                              maxLength: 4,
                               suffix: GestureDetector(
                                 onTap: () {
                                   controller.enableVisibility();
